@@ -1,58 +1,37 @@
 import * as cheerio from "cheerio";
-import * as fs from "node:fs/promises";
-import * as path from "node:path";
-import slugify from "slugify";
 import type { Category } from "@repo/types";
+import { BASE_URL, DELAY_MS, fetchPage, makeSlug, sleep, writeJSON } from "./utils";
 
-const BASE_URL = "https://www.weirdca.com";
-const DATA_DIR = path.resolve(import.meta.dirname, "../data");
-const DELAY_MS = 500;
+async function discoverCategories(): Promise<Map<number, string>> {
+  console.log("Discovering categories from homepage...");
+  const html = await fetchPage(BASE_URL);
+  const $ = cheerio.load(html);
+  const categories = new Map<number, string>();
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const slug = slugify as any as (str: string, opts?: object) => string;
+  $('a[href*="index.php?type="]').each((_, el) => {
+    const href = $(el).attr("href");
+    const match = href?.match(/index\.php\?type=(\d+)/);
+    const name = $(el).text().trim();
+    if (match && name) {
+      categories.set(Number(match[1]), name);
+    }
+  });
 
-// Known category IDs from sitemap analysis
-const CATEGORY_IDS: Record<number, string> = {
-  19: "Animals",
-  5: "Bizarre Buildings",
-  16: "Forgotten Locales",
-  6: "Hauntings",
-  17: "History",
-  7: "Legends",
-  9: "Missing Treasures",
-  10: "Monsters",
-  18: "Natural Weirdness",
-  11: "Roadside Attractions",
-  20: "Seasonal Weird",
-  12: "Weird",
-  15: "Weird Outside California",
-};
-
-async function fetchPage(url: string): Promise<string> {
-  const response = await fetch(url);
-  if (!response.ok) {
-    throw new Error(`HTTP ${response.status} for ${url}`);
-  }
-  return response.text();
-}
-
-function sleep(ms: number): Promise<void> {
-  return new Promise((resolve) => setTimeout(resolve, ms));
+  console.log(`Discovered ${categories.size} categories`);
+  return categories;
 }
 
 export async function scrapeCategories(): Promise<Category[]> {
-  await fs.mkdir(DATA_DIR, { recursive: true });
-
+  const discoveredCategories = await discoverCategories();
   const categories: Category[] = [];
 
-  for (const [id, name] of Object.entries(CATEGORY_IDS)) {
+  for (const [id, name] of discoveredCategories) {
     console.log(`Scraping category: ${name} (ID ${id})...`);
     let locationCount = 0;
 
     try {
       const html = await fetchPage(`${BASE_URL}/index.php?type=${id}`);
       const $ = cheerio.load(html);
-      // Count unique location links on the category page
       const locationLinks = new Set<string>();
       $('a[href*="location.php?location="]').each((_, el) => {
         const href = $(el).attr("href");
@@ -64,8 +43,8 @@ export async function scrapeCategories(): Promise<Category[]> {
     }
 
     categories.push({
-      id: Number(id),
-      slug: slug(name, { lower: true, strict: true }),
+      id,
+      slug: makeSlug(name),
       name,
       locationCount,
     });
@@ -73,8 +52,7 @@ export async function scrapeCategories(): Promise<Category[]> {
     await sleep(DELAY_MS);
   }
 
-  const outputPath = path.join(DATA_DIR, "categories.json");
-  await fs.writeFile(outputPath, JSON.stringify(categories, null, 2));
+  const outputPath = await writeJSON("categories.json", categories);
   console.log(`\nWrote ${categories.length} categories to ${outputPath}`);
 
   return categories;
