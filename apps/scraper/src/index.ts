@@ -9,8 +9,8 @@
  *   pnpm scrape:categories   - Scrape category listings
  */
 
-import { scrapeCategories } from "./scrape-categories.js";
-import { scrapeLocations } from "./scrape-locations.js";
+import { scrapeCategories } from "./scrape-categories";
+import { scrapeLocations } from "./scrape-locations";
 
 async function main() {
   console.log("WeirdCA Scraper - Starting full pipeline\n");
