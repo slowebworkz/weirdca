@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { parseComment } from "./comment";
+import { parseComment } from "../../src/parsers/comment";
 
 describe("parseComment", () => {
   it("parses comment with name, city, state, and date", () => {

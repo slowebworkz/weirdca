@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { makeSlug } from "./slug";
+import { makeSlug } from "../../src/utils/slug";
 
 describe("makeSlug", () => {
   it("converts a simple string to a slug", () => {

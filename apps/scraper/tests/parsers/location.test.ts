@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { parseLocationPage } from "./location";
+import { parseLocationPage } from "../../src/parsers/location";
 
 function buildLocationHTML({
   title = "Mystery Spot - Weird California",

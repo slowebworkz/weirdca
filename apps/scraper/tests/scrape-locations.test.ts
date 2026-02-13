@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
-vi.mock("./utils", () => ({
+vi.mock("../src/utils", () => ({
   BASE_URL: "https://www.weirdca.com",
   DELAY_MS: 0,
   fetchPage: vi.fn(),
@@ -9,13 +9,13 @@ vi.mock("./utils", () => ({
   writeJSON: vi.fn().mockResolvedValue("/data/locations.json"),
 }));
 
-vi.mock("./parsers", () => ({
+vi.mock("../src/parsers", () => ({
   parseLocationPage: vi.fn(),
 }));
 
-import { scrapeLocations } from "./scrape-locations";
-import { fetchPage } from "./utils";
-import { parseLocationPage } from "./parsers";
+import { scrapeLocations } from "../src/scrape-locations";
+import { fetchPage } from "../src/utils";
+import { parseLocationPage } from "../src/parsers";
 import type { Location } from "@repo/types";
 
 const mockFetchPage = vi.mocked(fetchPage);
