@@ -1,47 +1,67 @@
 import * as cheerio from "cheerio";
-import * as fs from "node:fs/promises";
-import * as path from "node:path";
-import slugify from "slugify";
 import type { Category } from "@repo/types";
+import { BASE_URL, DELAY_MS, fetchPage, makeSlug, sleep, writeJSON } from "./utils";
 
-const BASE_URL = "https://www.weirdca.com";
-const DATA_DIR = path.resolve(import.meta.dirname, "../data");
+async function discoverCategories(): Promise<Map<number, string>> {
+  console.log("Discovering categories from homepage...");
+  const html = await fetchPage(BASE_URL);
+  const $ = cheerio.load(html);
+  const categories = new Map<number, string>();
 
-// Known category IDs from sitemap analysis
-const CATEGORY_IDS: Record<number, string> = {
-  19: "Animals",
-  5: "Bizarre Buildings",
-  16: "Forgotten Locales",
-  6: "Hauntings",
-  17: "History",
-  7: "Legends",
-  9: "Missing Treasures",
-  10: "Monsters",
-  18: "Natural Weirdness",
-  11: "Roadside Attractions",
-  20: "Seasonal Weird",
-  12: "Weird",
-  15: "Weird Outside California",
-};
+  $('a[href*="index.php?type="]').each((_, el) => {
+    const href = $(el).attr("href");
+    const match = href?.match(/index\.php\?type=(\d+)/);
+    const name = $(el).text().trim();
+    if (match && name) {
+      categories.set(Number(match[1]), name);
+    }
+  });
 
-async function main() {
-  await fs.mkdir(DATA_DIR, { recursive: true });
-
-  const categories: Category[] = Object.entries(CATEGORY_IDS).map(
-    ([id, name]) => ({
-      id: Number(id),
-      slug: slugify(name, { lower: true, strict: true }),
-      name,
-      locationCount: 0,
-    })
-  );
-
-  // TODO: Scrape each category page to get accurate location counts
-  // and subcategory information
-
-  const outputPath = path.join(DATA_DIR, "categories.json");
-  await fs.writeFile(outputPath, JSON.stringify(categories, null, 2));
-  console.log(`Wrote ${categories.length} categories to ${outputPath}`);
+  console.log(`Discovered ${categories.size} categories`);
+  return categories;
 }
 
-main();
+export async function scrapeCategories(): Promise<Category[]> {
+  const discoveredCategories = await discoverCategories();
+  const categories: Category[] = [];
+
+  for (const [id, name] of discoveredCategories) {
+    console.log(`Scraping category: ${name} (ID ${id})...`);
+    let locationCount = 0;
+
+    try {
+      const html = await fetchPage(`${BASE_URL}/index.php?type=${id}`);
+      const $ = cheerio.load(html);
+      const locationLinks = new Set<string>();
+      $('a[href*="location.php?location="]').each((_, el) => {
+        const href = $(el).attr("href");
+        if (href) locationLinks.add(href);
+      });
+      locationCount = locationLinks.size;
+    } catch (error) {
+      console.error(`Failed to scrape category ${name}:`, error);
+    }
+
+    categories.push({
+      id,
+      slug: makeSlug(name),
+      name,
+      locationCount,
+    });
+
+    await sleep(DELAY_MS);
+  }
+
+  const outputPath = await writeJSON("categories.json", categories);
+  console.log(`\nWrote ${categories.length} categories to ${outputPath}`);
+
+  return categories;
+}
+
+// Run directly if executed as a script
+const isMain =
+  process.argv[1] &&
+  import.meta.url === `file://${process.argv[1]}`;
+if (isMain) {
+  scrapeCategories();
+}

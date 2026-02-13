@@ -9,5 +9,24 @@
  *   pnpm scrape:categories   - Scrape category listings
  */
 
-console.log("WeirdCA Scraper - TODO: implement pipeline");
-console.log("Run individual scripts with pnpm scrape:locations or pnpm scrape:categories");
+import { scrapeCategories } from "./scrape-categories";
+import { scrapeLocations } from "./scrape-locations";
+
+async function main() {
+  console.log("WeirdCA Scraper - Starting full pipeline\n");
+  const start = Date.now();
+
+  console.log("=== Phase 1: Categories ===\n");
+  const categories = await scrapeCategories();
+
+  console.log("\n=== Phase 2: Locations ===\n");
+  const locations = await scrapeLocations();
+
+  const elapsed = ((Date.now() - start) / 1000).toFixed(1);
+  console.log(`\n=== Pipeline Complete ===`);
+  console.log(`Categories: ${categories.length}`);
+  console.log(`Locations: ${locations.length}`);
+  console.log(`Total time: ${elapsed}s`);
+}
+
+main();
