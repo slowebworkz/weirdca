@@ -4,6 +4,8 @@ vi.mock("../src/utils", () => ({
   BASE_URL: "https://www.weirdca.com",
   DELAY_MS: 0,
   fetchPage: vi.fn(),
+  log: vi.fn(),
+  error: vi.fn(),
   makeSlug: vi.fn((name: string) => name.toLowerCase().replace(/\s+/g, "-")),
   sleep: vi.fn().mockResolvedValue(undefined),
   writeJSON: vi.fn().mockResolvedValue("/data/locations.json"),

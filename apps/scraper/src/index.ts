@@ -11,22 +11,23 @@
 
 import { scrapeCategories } from "./scrape-categories";
 import { scrapeLocations } from "./scrape-locations";
+import { header, log } from "./utils";
 
 async function main() {
-  console.log("WeirdCA Scraper - Starting full pipeline\n");
   const start = Date.now();
+  log("WeirdCA Scraper - Starting full pipeline");
 
-  console.log("=== Phase 1: Categories ===\n");
+  header("Phase 1: Categories");
   const categories = await scrapeCategories();
 
-  console.log("\n=== Phase 2: Locations ===\n");
+  header("Phase 2: Locations");
   const locations = await scrapeLocations();
 
   const elapsed = ((Date.now() - start) / 1000).toFixed(1);
-  console.log(`\n=== Pipeline Complete ===`);
-  console.log(`Categories: ${categories.length}`);
-  console.log(`Locations: ${locations.length}`);
-  console.log(`Total time: ${elapsed}s`);
+  header("Pipeline Complete");
+  log(`Categories: ${categories.length}`);
+  log(`Locations: ${locations.length}`);
+  log(`Total time: ${elapsed}s`);
 }
 
 main();

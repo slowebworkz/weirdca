@@ -3,14 +3,16 @@ import type { Category } from "@repo/types";
 import {
   BASE_URL,
   DELAY_MS,
+  error,
   fetchPage,
+  log,
   makeSlug,
   sleep,
   writeJSON,
 } from "./utils";
 
 async function discoverCategories(): Promise<Map<number, string>> {
-  console.log("Discovering categories from homepage...");
+  log("Discovering categories from homepage...");
   const html = await fetchPage(BASE_URL);
   const $ = cheerio.load(html);
   const categories = new Map<number, string>();
@@ -24,7 +26,7 @@ async function discoverCategories(): Promise<Map<number, string>> {
     }
   });
 
-  console.log(`Discovered ${categories.size} categories`);
+  log(`Discovered ${categories.size} categories`);
   return categories;
 }
 
@@ -33,7 +35,7 @@ export async function scrapeCategories(): Promise<Category[]> {
   const categories: Category[] = [];
 
   for (const [id, name] of discoveredCategories) {
-    console.log(`Scraping category: ${name} (ID ${id})...`);
+    log(`Scraping category: ${name} (ID ${id})...`);
     let locationCount = 0;
 
     try {
@@ -45,8 +47,8 @@ export async function scrapeCategories(): Promise<Category[]> {
         if (href) locationLinks.add(href);
       });
       locationCount = locationLinks.size;
-    } catch (error) {
-      console.error(`Failed to scrape category ${name}:`, error);
+    } catch (err) {
+      error(`Failed to scrape category ${name}:`, err);
     }
 
     categories.push({
@@ -60,7 +62,7 @@ export async function scrapeCategories(): Promise<Category[]> {
   }
 
   const outputPath = await writeJSON("categories.json", categories);
-  console.log(`\nWrote ${categories.length} categories to ${outputPath}`);
+  log(`\nWrote ${categories.length} categories to ${outputPath}`);
 
   return categories;
 }

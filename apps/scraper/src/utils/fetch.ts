@@ -1,4 +1,4 @@
-import * as fs from "node:fs/promises";
+import { mkdir, writeFile } from "node:fs/promises";
 import { DATA_DIR } from "./constants";
 
 export async function fetchPage(url: string): Promise<string> {
@@ -17,8 +17,8 @@ export async function writeJSON(
   filename: string,
   data: unknown,
 ): Promise<string> {
-  await fs.mkdir(DATA_DIR, { recursive: true });
+  await mkdir(DATA_DIR, { recursive: true });
   const outputPath = `${DATA_DIR}/${filename}`;
-  await fs.writeFile(outputPath, JSON.stringify(data, null, 2));
+  await writeFile(outputPath, JSON.stringify(data, null, 2));
   return outputPath;
 }
