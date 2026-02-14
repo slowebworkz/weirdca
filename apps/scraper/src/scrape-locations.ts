@@ -35,8 +35,7 @@ export async function scrapeLocations(): Promise<Location[]> {
 
 // Run directly if executed as a script
 const isMain =
-  process.argv[1] &&
-  import.meta.url === `file://${process.argv[1]}`;
+  process.argv[1] && import.meta.url === `file://${process.argv[1]}`;
 if (isMain) {
   scrapeLocations();
 }

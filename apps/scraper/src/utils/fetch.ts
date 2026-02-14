@@ -13,7 +13,10 @@ export function sleep(ms: number): Promise<void> {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-export async function writeJSON(filename: string, data: unknown): Promise<string> {
+export async function writeJSON(
+  filename: string,
+  data: unknown,
+): Promise<string> {
   await fs.mkdir(DATA_DIR, { recursive: true });
   const outputPath = `${DATA_DIR}/${filename}`;
   await fs.writeFile(outputPath, JSON.stringify(data, null, 2));

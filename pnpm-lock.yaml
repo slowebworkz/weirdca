@@ -15,8 +15,8 @@ importers:
         specifier: ^3.8.1
         version: 3.8.1
       turbo:
-        specifier: ^2.8.7
-        version: 2.8.7
+        specifier: ^2.8.8
+        version: 2.8.8
       typescript:
         specifier: 5.9.3
         version: 5.9.3
@@ -50,7 +50,7 @@ importers:
         version: 5.9.3
       vitest:
         specifier: ^3.2.1
-        version: 3.2.4(@types/node@25.2.3)(jiti@2.6.1)(lightningcss@1.30.2)(tsx@4.21.0)
+        version: 3.2.4(@types/node@25.2.3)(jiti@2.6.1)(lightningcss@1.30.2)(tsx@4.21.0)(yaml@2.8.2)
 
   apps/web:
     dependencies:
@@ -126,7 +126,7 @@ importers:
         version: 7.0.1(eslint@9.39.2(jiti@2.6.1))
       eslint-plugin-turbo:
         specifier: ^2.8.7
-        version: 2.8.7(eslint@9.39.2(jiti@2.6.1))(turbo@2.8.7)
+        version: 2.8.7(eslint@9.39.2(jiti@2.6.1))(turbo@2.8.8)
       globals:
         specifier: ^17.3.0
         version: 17.3.0
@@ -2209,38 +2209,38 @@ packages:
     engines: {node: '>=18.0.0'}
     hasBin: true
 
-  turbo-darwin-64@2.8.7:
-    resolution: {integrity: sha512-Xr4TO/oDDwoozbDtBvunb66g//WK8uHRygl72vUthuwzmiw48pil4IuoG/QbMHd9RE8aBnVmzC0WZEWk/WWt3A==}
+  turbo-darwin-64@2.8.8:
+    resolution: {integrity: sha512-7R/XRAleyNB8nIJuenRpS7EnmCM/kYFgcG1rW3F5DF57Nl4WyBO3DzxqwooRheuoXDD1UsJvDse0yRufgxjClA==}
     cpu: [x64]
     os: [darwin]
 
-  turbo-darwin-arm64@2.8.7:
-    resolution: {integrity: sha512-p8Xbmb9kZEY/NoshQUcFmQdO80s2PCGoLYj5DbpxjZr3diknipXxzOK7pcmT7l2gNHaMCpFVWLkiFY9nO3EU5w==}
+  turbo-darwin-arm64@2.8.8:
+    resolution: {integrity: sha512-whpveO0w/dMcgQ0zFrzqK76mG2W+RBQ/pKIpW+sEvNr+T4UcYd2gZpfV2euehJLvdeFErWgW74dIt/MFfkG1bA==}
     cpu: [arm64]
     os: [darwin]
 
-  turbo-linux-64@2.8.7:
-    resolution: {integrity: sha512-nwfEPAH3m5y/nJeYly3j1YJNYU2EG5+2ysZUxvBNM+VBV2LjQaLxB9CsEIpIOKuWKCjnFHKIADTSDPZ3D12J5Q==}
+  turbo-linux-64@2.8.8:
+    resolution: {integrity: sha512-BISkcKk+5/Dh11q+YhdQIGONXmdlQ6LY0iQ+GBIK7QOBAJyJFKmKvUeAeMdWGXOa3sImz2oZ6u2StyR+0Y/VVA==}
     cpu: [x64]
     os: [linux]
 
-  turbo-linux-arm64@2.8.7:
-    resolution: {integrity: sha512-mgA/M6xiJzyxtXV70TtWGDPh+I6acOKmeQGtOzbFQZYEf794pu5jax26bCk5skAp1gqZu3vacPr6jhYHoHU9IQ==}
+  turbo-linux-arm64@2.8.8:
+    resolution: {integrity: sha512-B+DQWWtM3O+AexFF4aYucT0MvvnQOW4n5y9LA5h3Zc3Lpj10yl9K4dEBzJvMVQ2jTkCRNAvA8q9G3EjqmGmGGA==}
     cpu: [arm64]
     os: [linux]
 
-  turbo-windows-64@2.8.7:
-    resolution: {integrity: sha512-sHTYMaXuCcyHnGUQgfUUt7S8407TWoP14zc/4N2tsM0wZNK6V9h4H2t5jQPtqKEb6Fg8313kygdDgEwuM4vsHg==}
+  turbo-windows-64@2.8.8:
+    resolution: {integrity: sha512-KP5TRVrmVnrxDyvERvQq7VXu+h5AiEiBwyr90YsRuYy/Z5zLz8hrNZXejTyUR17xmnuI+RbUSxrQlfmPnxiW1A==}
     cpu: [x64]
     os: [win32]
 
-  turbo-windows-arm64@2.8.7:
-    resolution: {integrity: sha512-WyGiOI2Zp3AhuzVagzQN+T+iq0fWx0oGxDfAWT3ZiLEd4U0cDUkwUZDKVGb3rKqPjDL6lWnuxKKu73ge5xtovQ==}
+  turbo-windows-arm64@2.8.8:
+    resolution: {integrity: sha512-X45sTOksR8iidk+PZUXpNcfEkOhGCTS2p2J8nSUExr1v7u3T4FixwplzliuWmG7QTPGJapAwItzHbi+d/9ckNQ==}
     cpu: [arm64]
     os: [win32]
 
-  turbo@2.8.7:
-    resolution: {integrity: sha512-RBLh5caMAu1kFdTK1jgH2gH/z+jFsvX5rGbhgJ9nlIAWXSvxlzwId05uDlBA1+pBd3wO/UaKYzaQZQBXDd7kcA==}
+  turbo@2.8.8:
+    resolution: {integrity: sha512-wP+axjWAKzYfZ7bghuggVST9bX4j5cn3NPMU9NPQqtwaUKL9n9JOnWWBIc9gdrEma1aViYR73EoPjDEpVq+liQ==}
     hasBin: true
 
   type-check@0.4.0:
@@ -2413,6 +2413,11 @@ packages:
 
   yallist@3.1.1:
     resolution: {integrity: sha512-a4UGQaWPH59mOXUYnAG2ewncQS4i4F43Tv3JoAM+s2VDAmS9NsK8GpDMLrCHPksFT7h3K6TOoUNn2pb7RoXx4g==}
+
+  yaml@2.8.2:
+    resolution: {integrity: sha512-mplynKqc1C2hTVYxd0PU2xQAc22TI1vShAYGksCCfxbn/dFwnHTNi1bvYsBTkhdUNtGIf5xNOg938rrSSYvS9A==}
+    engines: {node: '>= 14.6'}
+    hasBin: true
 
   yocto-queue@0.1.0:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
@@ -3099,13 +3104,13 @@ snapshots:
       chai: 5.3.3
       tinyrainbow: 2.0.0
 
-  '@vitest/mocker@3.2.4(vite@7.3.1(@types/node@25.2.3)(jiti@2.6.1)(lightningcss@1.30.2)(tsx@4.21.0))':
+  '@vitest/mocker@3.2.4(vite@7.3.1(@types/node@25.2.3)(jiti@2.6.1)(lightningcss@1.30.2)(tsx@4.21.0)(yaml@2.8.2))':
     dependencies:
       '@vitest/spy': 3.2.4
       estree-walker: 3.0.3
       magic-string: 0.30.21
     optionalDependencies:
-      vite: 7.3.1(@types/node@25.2.3)(jiti@2.6.1)(lightningcss@1.30.2)(tsx@4.21.0)
+      vite: 7.3.1(@types/node@25.2.3)(jiti@2.6.1)(lightningcss@1.30.2)(tsx@4.21.0)(yaml@2.8.2)
 
   '@vitest/pretty-format@3.2.4':
     dependencies:
@@ -3598,11 +3603,11 @@ snapshots:
       string.prototype.matchall: 4.0.12
       string.prototype.repeat: 1.0.0
 
-  eslint-plugin-turbo@2.8.7(eslint@9.39.2(jiti@2.6.1))(turbo@2.8.7):
+  eslint-plugin-turbo@2.8.7(eslint@9.39.2(jiti@2.6.1))(turbo@2.8.8):
     dependencies:
       dotenv: 16.0.3
       eslint: 9.39.2(jiti@2.6.1)
-      turbo: 2.8.7
+      turbo: 2.8.8
 
   eslint-scope@8.4.0:
     dependencies:
@@ -4555,32 +4560,32 @@ snapshots:
     optionalDependencies:
       fsevents: 2.3.3
 
-  turbo-darwin-64@2.8.7:
+  turbo-darwin-64@2.8.8:
     optional: true
 
-  turbo-darwin-arm64@2.8.7:
+  turbo-darwin-arm64@2.8.8:
     optional: true
 
-  turbo-linux-64@2.8.7:
+  turbo-linux-64@2.8.8:
     optional: true
 
-  turbo-linux-arm64@2.8.7:
+  turbo-linux-arm64@2.8.8:
     optional: true
 
-  turbo-windows-64@2.8.7:
+  turbo-windows-64@2.8.8:
     optional: true
 
-  turbo-windows-arm64@2.8.7:
+  turbo-windows-arm64@2.8.8:
     optional: true
 
-  turbo@2.8.7:
+  turbo@2.8.8:
     optionalDependencies:
-      turbo-darwin-64: 2.8.7
-      turbo-darwin-arm64: 2.8.7
-      turbo-linux-64: 2.8.7
-      turbo-linux-arm64: 2.8.7
-      turbo-windows-64: 2.8.7
-      turbo-windows-arm64: 2.8.7
+      turbo-darwin-64: 2.8.8
+      turbo-darwin-arm64: 2.8.8
+      turbo-linux-64: 2.8.8
+      turbo-linux-arm64: 2.8.8
+      turbo-windows-64: 2.8.8
+      turbo-windows-arm64: 2.8.8
 
   type-check@0.4.0:
     dependencies:
@@ -4657,13 +4662,13 @@ snapshots:
     dependencies:
       punycode: 2.3.1
 
-  vite-node@3.2.4(@types/node@25.2.3)(jiti@2.6.1)(lightningcss@1.30.2)(tsx@4.21.0):
+  vite-node@3.2.4(@types/node@25.2.3)(jiti@2.6.1)(lightningcss@1.30.2)(tsx@4.21.0)(yaml@2.8.2):
     dependencies:
       cac: 6.7.14
       debug: 4.4.3
       es-module-lexer: 1.7.0
       pathe: 2.0.3
-      vite: 7.3.1(@types/node@25.2.3)(jiti@2.6.1)(lightningcss@1.30.2)(tsx@4.21.0)
+      vite: 7.3.1(@types/node@25.2.3)(jiti@2.6.1)(lightningcss@1.30.2)(tsx@4.21.0)(yaml@2.8.2)
     transitivePeerDependencies:
       - '@types/node'
       - jiti
@@ -4678,7 +4683,7 @@ snapshots:
       - tsx
       - yaml
 
-  vite@7.3.1(@types/node@25.2.3)(jiti@2.6.1)(lightningcss@1.30.2)(tsx@4.21.0):
+  vite@7.3.1(@types/node@25.2.3)(jiti@2.6.1)(lightningcss@1.30.2)(tsx@4.21.0)(yaml@2.8.2):
     dependencies:
       esbuild: 0.27.3
       fdir: 6.5.0(picomatch@4.0.3)
@@ -4692,12 +4697,13 @@ snapshots:
       jiti: 2.6.1
       lightningcss: 1.30.2
       tsx: 4.21.0
+      yaml: 2.8.2
 
-  vitest@3.2.4(@types/node@25.2.3)(jiti@2.6.1)(lightningcss@1.30.2)(tsx@4.21.0):
+  vitest@3.2.4(@types/node@25.2.3)(jiti@2.6.1)(lightningcss@1.30.2)(tsx@4.21.0)(yaml@2.8.2):
     dependencies:
       '@types/chai': 5.2.3
       '@vitest/expect': 3.2.4
-      '@vitest/mocker': 3.2.4(vite@7.3.1(@types/node@25.2.3)(jiti@2.6.1)(lightningcss@1.30.2)(tsx@4.21.0))
+      '@vitest/mocker': 3.2.4(vite@7.3.1(@types/node@25.2.3)(jiti@2.6.1)(lightningcss@1.30.2)(tsx@4.21.0)(yaml@2.8.2))
       '@vitest/pretty-format': 3.2.4
       '@vitest/runner': 3.2.4
       '@vitest/snapshot': 3.2.4
@@ -4715,8 +4721,8 @@ snapshots:
       tinyglobby: 0.2.15
       tinypool: 1.1.1
       tinyrainbow: 2.0.0
-      vite: 7.3.1(@types/node@25.2.3)(jiti@2.6.1)(lightningcss@1.30.2)(tsx@4.21.0)
-      vite-node: 3.2.4(@types/node@25.2.3)(jiti@2.6.1)(lightningcss@1.30.2)(tsx@4.21.0)
+      vite: 7.3.1(@types/node@25.2.3)(jiti@2.6.1)(lightningcss@1.30.2)(tsx@4.21.0)(yaml@2.8.2)
+      vite-node: 3.2.4(@types/node@25.2.3)(jiti@2.6.1)(lightningcss@1.30.2)(tsx@4.21.0)(yaml@2.8.2)
       why-is-node-running: 2.3.0
     optionalDependencies:
       '@types/node': 25.2.3
@@ -4793,6 +4799,9 @@ snapshots:
   word-wrap@1.2.5: {}
 
   yallist@3.1.1: {}
+
+  yaml@2.8.2:
+    optional: true
 
   yocto-queue@0.1.0: {}
 

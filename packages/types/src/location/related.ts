@@ -3,7 +3,13 @@ import type { Simplify } from "type-fest";
 import type { Location } from "./location";
 
 type RelatedLocationKeys = "id" | "slug" | "title" | "city";
-type LocationSummaryKeys = "id" | "slug" | "title" | "city" | "county" | "category";
+type LocationSummaryKeys =
+  | "id"
+  | "slug"
+  | "title"
+  | "city"
+  | "county"
+  | "category";
 
 /** Lightweight representation used in nearby/related listings. */
 export type RelatedLocation = Simplify<

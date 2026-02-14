@@ -1,6 +1,13 @@
 import * as cheerio from "cheerio";
 import type { Category } from "@repo/types";
-import { BASE_URL, DELAY_MS, fetchPage, makeSlug, sleep, writeJSON } from "./utils";
+import {
+  BASE_URL,
+  DELAY_MS,
+  fetchPage,
+  makeSlug,
+  sleep,
+  writeJSON,
+} from "./utils";
 
 async function discoverCategories(): Promise<Map<number, string>> {
   console.log("Discovering categories from homepage...");
@@ -60,8 +67,7 @@ export async function scrapeCategories(): Promise<Category[]> {
 
 // Run directly if executed as a script
 const isMain =
-  process.argv[1] &&
-  import.meta.url === `file://${process.argv[1]}`;
+  process.argv[1] && import.meta.url === `file://${process.argv[1]}`;
 if (isMain) {
   scrapeCategories();
 }

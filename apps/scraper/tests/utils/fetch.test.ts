@@ -35,7 +35,7 @@ describe("fetchPage", () => {
     } as Response);
 
     await expect(fetchPage("https://example.com/missing")).rejects.toThrow(
-      "HTTP 404"
+      "HTTP 404",
     );
   });
 });
@@ -66,7 +66,7 @@ describe("writeJSON", () => {
     expect(fs.mkdir).toHaveBeenCalled();
     expect(fs.writeFile).toHaveBeenCalledWith(
       expect.stringContaining("test.json"),
-      JSON.stringify(data, null, 2)
+      JSON.stringify(data, null, 2),
     );
     expect(result).toContain("test.json");
   });

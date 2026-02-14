@@ -20,8 +20,9 @@ const HOMEPAGE_HTML = `<html><body>
 </body></html>`;
 
 function categoryPageHTML(locationCount: number): string {
-  const links = Array.from({ length: locationCount }, (_, i) =>
-    `<a href="location.php?location=${i + 1}">Location ${i + 1}</a>`
+  const links = Array.from(
+    { length: locationCount },
+    (_, i) => `<a href="location.php?location=${i + 1}">Location ${i + 1}</a>`,
   ).join("\n");
   return `<html><body>${links}</body></html>`;
 }

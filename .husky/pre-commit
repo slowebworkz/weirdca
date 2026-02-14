@@ -1,1 +1,3 @@
+pnpm format:staged
+git diff --cached --name-only --diff-filter=ACMR -- '*.ts' '*.tsx' '*.md' | xargs git add
 pnpm turbo build lint test check-types

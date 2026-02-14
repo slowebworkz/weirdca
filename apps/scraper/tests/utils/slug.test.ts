@@ -8,7 +8,7 @@ describe("makeSlug", () => {
 
   it("combines input with city", () => {
     expect(makeSlug("Mystery Spot", "Santa Cruz")).toBe(
-      "mystery-spot-santa-cruz"
+      "mystery-spot-santa-cruz",
     );
   });
 

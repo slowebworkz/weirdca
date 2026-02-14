@@ -91,7 +91,9 @@ describe("parseLocationPage", () => {
   });
 
   it("returns null for empty page", () => {
-    expect(parseLocationPage("<html><head><title></title></head></html>", 1)).toBeNull();
+    expect(
+      parseLocationPage("<html><head><title></title></head></html>", 1),
+    ).toBeNull();
   });
 
   it("returns null when title is just 'Weird California'", () => {
@@ -100,8 +102,7 @@ describe("parseLocationPage", () => {
   });
 
   it("returns null when title is ' - Weird California'", () => {
-    const html =
-      "<html><head><title> - Weird California</title></head></html>";
+    const html = "<html><head><title> - Weird California</title></head></html>";
     expect(parseLocationPage(html, 1)).toBeNull();
   });
 
@@ -163,7 +164,7 @@ describe("parseLocationPage", () => {
   it("stops description at 'Closest Weird'", () => {
     const html = buildLocationHTML({
       description:
-        '<p>First paragraph.</p><p>Closest Weird locations nearby.</p><p>Should not appear.</p>',
+        "<p>First paragraph.</p><p>Closest Weird locations nearby.</p><p>Should not appear.</p>",
     });
     const result = parseLocationPage(html, 1)!;
     expect(result.description).toBe("First paragraph.");

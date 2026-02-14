@@ -4,7 +4,7 @@ import { parseComment } from "../../src/parsers/comment";
 describe("parseComment", () => {
   it("parses comment with name, city, state, and date", () => {
     const result = parseComment(
-      "John of San Francisco, CA on 2023-05-14 said: Great place to visit!"
+      "John of San Francisco, CA on 2023-05-14 said: Great place to visit!",
     );
     expect(result).toEqual({
       name: "John",
@@ -17,7 +17,7 @@ describe("parseComment", () => {
 
   it("parses comment without city (anonymous pattern)", () => {
     const result = parseComment(
-      "Anonymous on 2022-01-01 said: Interesting location."
+      "Anonymous on 2022-01-01 said: Interesting location.",
     );
     expect(result).toEqual({
       name: "Anonymous",
@@ -35,7 +35,7 @@ describe("parseComment", () => {
 
   it("handles multiline comment text", () => {
     const result = parseComment(
-      "Jane of Los Angeles, CA on 2021-06-15 said: First line.\nSecond line.\nThird line."
+      "Jane of Los Angeles, CA on 2021-06-15 said: First line.\nSecond line.\nThird line.",
     );
     expect(result).not.toBeNull();
     expect(result!.text).toBe("First line.\nSecond line.\nThird line.");
@@ -43,7 +43,7 @@ describe("parseComment", () => {
 
   it("handles city names with multiple words", () => {
     const result = parseComment(
-      "Bob of San Luis Obispo, CA on 2020-03-10 said: Nice spot."
+      "Bob of San Luis Obispo, CA on 2020-03-10 said: Nice spot.",
     );
     expect(result).toEqual({
       name: "Bob",
@@ -55,9 +55,7 @@ describe("parseComment", () => {
   });
 
   it("handles name with spaces in no-city pattern", () => {
-    const result = parseComment(
-      "John Smith on 2023-01-01 said: Hello world"
-    );
+    const result = parseComment("John Smith on 2023-01-01 said: Hello world");
     expect(result).toEqual({
       name: "John Smith",
       city: null,
