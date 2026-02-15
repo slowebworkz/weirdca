@@ -12,11 +12,13 @@ function buildLocationHTML({
   images = true,
   relatedLocations = true,
   comments = true,
+  outsideLinks = false,
+  outsideReferences = false,
   dates = true,
 }: Partial<{
   title: string;
   category: string;
-  cityLink: string;
+  cityLink: string | null;
   latitude: string | null;
   longitude: string | null;
   galleryPath: string;
@@ -24,6 +26,8 @@ function buildLocationHTML({
   images: boolean;
   relatedLocations: boolean;
   comments: boolean;
+  outsideLinks: boolean;
+  outsideReferences: boolean;
   dates: boolean;
 }> = {}): string {
   const metaLat = latitude
@@ -33,9 +37,13 @@ function buildLocationHTML({
     ? `<meta property="og:longitude" content="${longitude}" />`
     : "";
 
+  const cityPart = cityLink
+    ? `<a href="search2.php?city=${encodeURIComponent(cityLink)}">${cityLink}</a>, California 95065`
+    : "California";
+
   const imageHTML = images
-    ? `<a data-lightbox="weirdpict" href="${galleryPath}photo1.jpg"><img alt="Photo 1" /></a>
-       <a data-lightbox="weirdpict" href="${galleryPath}photo2.jpg"><img alt="Photo 2" /></a>`
+    ? `<div class=picture><a data-lightbox="weirdpict" href="${galleryPath}photo1.jpg"><img width=150 alt="Photo 1" src="${galleryPath}thumb1.jpg" /></a><div class=caption>First photo</div></div>
+       <div class=pictureright><a data-lightbox="weirdpict" href="${galleryPath}photo2.jpg"><img width=200 alt="Photo 2" src="${galleryPath}thumb2.jpg" /></a><div class=caption>Second photo</div></div>`
     : "";
 
   const relatedHTML = relatedLocations
@@ -51,6 +59,21 @@ function buildLocationHTML({
        </ul>`
     : "";
 
+  const outsideLinksHTML = outsideLinks
+    ? `<p><b>Outside Links:</b></p><ul>
+         <li><a href="http://www.mysteryspot.com" target="top">Mystery Spot</a></li>
+         <li><a href="http://www.example.com" target="top">Example Site</a></li>
+       </ul>`
+    : "";
+
+  const outsideRefsHTML = outsideReferences
+    ? `<p><b>Outside References:</b></p><ul>
+         <li><a href="http://amzn.to/abc" target="top">Weird California</a> (2006) by Greg Bishop, Joe Oesterle, Mike Marinacci, p: 82 - 83</li>
+         <li><a href="http://amzn.to/def" target="top">Haunted Monterey Peninsula</a> (2009) by Yasuda, Anita, p: 141 - 144</li>
+         <li><a href="http://amzn.to/ghi" target="top">Ghosts of the Queen Mary</a> (2014) by Clune, Brian with Bob Davis</li>
+       </ul>`
+    : "";
+
   const datesHTML = dates
     ? `<i>First Created: 2005-03-12 Last Edited: 2023-08-01</i>`
     : "";
@@ -63,12 +86,14 @@ function buildLocationHTML({
     </head>
     <body>
       <div id="menu"><h1><a href="index.php?type=11">${category}</a></h1></div>
-      <div id="address">465 Mystery Spot Rd, <a href="search2.php?city=${encodeURIComponent(cityLink)}">${cityLink}</a>, California 95065</div>
+      <div id="address">465 Mystery Spot Rd, ${cityPart}</div>
       ${imageHTML}
       ${description}
       <div class="follow">Follow us</div>
       ${relatedHTML}
       ${commentsHTML}
+      ${outsideLinksHTML}
+      ${outsideRefsHTML}
       ${datesHTML}
     </body>
   </html>`;
@@ -83,10 +108,12 @@ describe("parseLocationPage", () => {
     expect(result!.id).toBe(100);
     expect(result!.title).toBe("Mystery Spot");
     expect(result!.category).toBe("Roadside Attractions");
-    expect(result!.city).toBe("Santa Cruz");
-    expect(result!.state).toBe("California");
-    expect(result!.latitude).toBe(37.0042);
-    expect(result!.longitude).toBe(-122.0024);
+    expect(result!.location).toBeDefined();
+    expect(result!.location!.city).toBe("Santa Cruz");
+    expect(result!.location!.state).toBe("California");
+    expect(result!.location!.geo).toBeDefined();
+    expect(result!.location!.geo!.latitude).toBe(37.0042);
+    expect(result!.location!.geo!.longitude).toBe(-122.0024);
     expect(result!.slug).toBeTruthy();
   });
 
@@ -109,7 +136,8 @@ describe("parseLocationPage", () => {
   it("extracts address and zip", () => {
     const html = buildLocationHTML({});
     const result = parseLocationPage(html, 1)!;
-    expect(result.zip).toBe("95065");
+    expect(result.location!.zip).toBe("95065");
+    expect(result.location!.address).toBeDefined();
   });
 
   it("extracts county from gallery image path", () => {
@@ -117,14 +145,14 @@ describe("parseLocationPage", () => {
       galleryPath: "gallery/var/albums/Weird/California/Los-Angeles/",
     });
     const result = parseLocationPage(html, 1)!;
-    expect(result.county).toBe("Los Angeles");
+    expect(result.location!.county).toBe("Los Angeles");
   });
 
   it("handles page with no images", () => {
     const html = buildLocationHTML({ images: false });
     const result = parseLocationPage(html, 1)!;
     expect(result.images).toEqual([]);
-    expect(result.county).toBe("");
+    expect(result.location!.county).toBeUndefined();
   });
 
   it("handles page with no comments", () => {
@@ -142,8 +170,7 @@ describe("parseLocationPage", () => {
   it("handles page with no coordinates", () => {
     const html = buildLocationHTML({ latitude: null, longitude: null });
     const result = parseLocationPage(html, 1)!;
-    expect(result.latitude).toBeNull();
-    expect(result.longitude).toBeNull();
+    expect(result.location!.geo).toBeUndefined();
   });
 
   it("handles page with no dates", () => {
@@ -153,12 +180,32 @@ describe("parseLocationPage", () => {
     expect(result.dateEdited).toBe("");
   });
 
-  it("extracts images with full URLs", () => {
+  it("omits location when no city is available", () => {
+    const html = buildLocationHTML({ cityLink: null });
+    const result = parseLocationPage(html, 1)!;
+    expect(result.location).toBeUndefined();
+  });
+
+  it("extracts images with full URLs, captions, and positions", () => {
     const html = buildLocationHTML({});
     const result = parseLocationPage(html, 1)!;
     expect(result.images).toHaveLength(2);
-    expect(result.images[0]!.src).toContain("https://www.weirdca.com/");
-    expect(result.images[0]!.alt).toBe("Photo 1");
+
+    expect(result.images[0]).toMatchObject({
+      src: "https://www.weirdca.com/gallery/var/albums/Weird/California/Santa-Cruz/photo1.jpg",
+      alt: "Photo 1",
+      caption: "First photo",
+      position: "left",
+      width: 150,
+    });
+    expect(result.images[0]!.thumbnailSrc).toContain("thumb1.jpg");
+
+    expect(result.images[1]).toMatchObject({
+      alt: "Photo 2",
+      caption: "Second photo",
+      position: "right",
+      width: 200,
+    });
   });
 
   it("stops description at 'Closest Weird'", () => {
@@ -195,6 +242,61 @@ describe("parseLocationPage", () => {
     expect(result.comments[0]!.name).toBe("Alice");
     expect(result.comments[0]!.city).toBe("Monterey");
     expect(result.comments[0]!.text).toBe("Amazing place!");
+  });
+
+  it("parses outside links", () => {
+    const html = buildLocationHTML({ outsideLinks: true });
+    const result = parseLocationPage(html, 1)!;
+    expect(result.outsideLinks).toHaveLength(2);
+    expect(result.outsideLinks[0]).toEqual({
+      url: "http://www.mysteryspot.com",
+      title: "Mystery Spot",
+    });
+    expect(result.outsideLinks[1]).toEqual({
+      url: "http://www.example.com",
+      title: "Example Site",
+    });
+  });
+
+  it("returns empty array when no outside links", () => {
+    const html = buildLocationHTML({});
+    const result = parseLocationPage(html, 1)!;
+    expect(result.outsideLinks).toEqual([]);
+  });
+
+  it("parses outside references with full citation", () => {
+    const html = buildLocationHTML({ outsideReferences: true });
+    const result = parseLocationPage(html, 1)!;
+    expect(result.outsideReferences).toHaveLength(3);
+    expect(result.outsideReferences[0]).toEqual({
+      url: "http://amzn.to/abc",
+      title: "Weird California",
+      year: 2006,
+      author: "Greg Bishop, Joe Oesterle, Mike Marinacci",
+      pages: "82 - 83",
+    });
+    expect(result.outsideReferences[1]).toMatchObject({
+      title: "Haunted Monterey Peninsula",
+      year: 2009,
+      author: "Yasuda, Anita",
+      pages: "141 - 144",
+    });
+  });
+
+  it("parses outside references without page numbers", () => {
+    const html = buildLocationHTML({ outsideReferences: true });
+    const result = parseLocationPage(html, 1)!;
+    const noPagesRef = result.outsideReferences[2]!;
+    expect(noPagesRef.title).toBe("Ghosts of the Queen Mary");
+    expect(noPagesRef.year).toBe(2014);
+    expect(noPagesRef.author).toBe("Clune, Brian with Bob Davis");
+    expect(noPagesRef.pages).toBeUndefined();
+  });
+
+  it("returns empty array when no outside references", () => {
+    const html = buildLocationHTML({});
+    const result = parseLocationPage(html, 1)!;
+    expect(result.outsideReferences).toEqual([]);
   });
 
   it("parses dates", () => {

@@ -1,11 +1,17 @@
+import { SiteLogo } from "./components/site-logo";
+
 export default function Home() {
   return (
     <div>
-      <h1 className="text-4xl font-bold tracking-tight">Weird California</h1>
-      <p className="mt-4 text-lg text-gray-600">
-        Documenting the strange, supernatural, and unconventional attractions
-        across California.
-      </p>
+      <div className="flex flex-col items-center rounded-xl bg-gray-950 px-6 py-12 text-center">
+        <h1>
+          <SiteLogo size="lg" />
+        </h1>
+        <p className="mt-4 text-lg text-gray-400">
+          Documenting the strange, supernatural, and unconventional attractions
+          across California.
+        </p>
+      </div>
 
       <section className="mt-12">
         <h2 className="text-2xl font-semibold">Categories</h2>

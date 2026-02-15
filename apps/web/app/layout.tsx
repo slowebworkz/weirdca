@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import Link from "next/link";
+import { SiteLogo } from "./components/site-logo";
 import "./globals.css";
 
 const geistSans = localFont({
@@ -25,19 +26,26 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} font-sans antialiased`}>
-        <header className="border-b border-gray-200 bg-white">
+        <header className="border-b border-gray-800 bg-gray-950">
           <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
-            <Link href="/" className="text-xl font-bold tracking-tight">
-              Weird California
-            </Link>
-            <div className="flex gap-6 text-sm">
-              <Link href="/map" className="hover:underline">
+            <SiteLogo size="sm" />
+            <div className="flex gap-6 text-sm text-gray-300">
+              <Link
+                href="/map"
+                className="transition-colors hover:text-red-400"
+              >
                 Map
               </Link>
-              <Link href="/search" className="hover:underline">
+              <Link
+                href="/search"
+                className="transition-colors hover:text-red-400"
+              >
                 Search
               </Link>
-              <Link href="/random" className="hover:underline">
+              <Link
+                href="/random"
+                className="transition-colors hover:text-red-400"
+              >
                 Random
               </Link>
             </div>
