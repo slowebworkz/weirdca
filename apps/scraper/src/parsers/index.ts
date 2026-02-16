@@ -1,2 +1,2 @@
-export { parseLocationPage } from "./location";
+export { parseLocationPage } from "./locations";
 export { parseComment } from "./comment";

@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import { fetchPage, sleep, writeJSON } from "../../src/utils/fetch";
+import { fetchPage, sleep, writeJSON } from "@scraper/utils/fetch";
 
 vi.mock("node:fs/promises", () => ({
   mkdir: vi.fn().mockResolvedValue(undefined),

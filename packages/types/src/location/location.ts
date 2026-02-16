@@ -3,55 +3,56 @@ import type { Comment } from "../comment";
 import type { RelatedLocation } from "./related";
 
 export interface LocationImage {
-  src: string;
-  alt: string;
-  caption: string | null;
-  thumbnailSrc: string | null;
-  position: "left" | "right" | "center" | null;
-  width: number | null;
-  height: number | null;
+  readonly src: string;
+  readonly href: string;
+  readonly alt: string;
+  readonly caption: string | null;
+  readonly thumbnailSrc: string | null;
+  readonly position: "left" | "right" | "center" | null;
+  readonly width: number | null;
+  readonly height: number | null;
 }
 
 export interface Geo {
-  latitude: number;
-  longitude: number;
+  readonly latitude: number;
+  readonly longitude: number;
 }
 
 export interface LocationDetails {
-  address?: string;
-  city: string;
-  county?: string;
-  state: string;
-  zip?: string;
-  geo?: Geo;
+  readonly address?: string;
+  readonly city: string;
+  readonly county?: string;
+  readonly state: string;
+  readonly zip?: string;
+  readonly geo?: Geo;
 }
 
 export interface OutsideLink {
-  url: string;
-  title: string;
+  readonly url: string;
+  readonly title: string;
 }
 
 export interface OutsideReference {
-  url: string;
-  title: string;
-  year?: number;
-  author?: string;
-  pages?: string;
+  readonly url: string;
+  readonly title: string;
+  readonly year?: number;
+  readonly author?: string;
+  readonly pages?: string;
 }
 
 export interface Location {
-  id: number;
-  slug: string;
-  title: string;
-  location?: LocationDetails;
-  category: string;
-  subcategory: string | null;
-  description: string;
-  images: LocationImage[];
-  relatedLocations: RelatedLocation[];
-  comments: Comment[];
-  outsideLinks: OutsideLink[];
-  outsideReferences: OutsideReference[];
-  dateCreated: string;
-  dateEdited: string;
+  readonly id: number;
+  readonly slug: string;
+  readonly title: string;
+  readonly location?: LocationDetails;
+  readonly category: string;
+  readonly subcategory: string | null;
+  readonly description: string;
+  readonly images: readonly LocationImage[];
+  readonly relatedLocations: readonly RelatedLocation[];
+  readonly comments: readonly Comment[];
+  readonly outsideLinks: readonly OutsideLink[];
+  readonly outsideReferences: readonly OutsideReference[];
+  readonly dateCreated: string;
+  readonly dateEdited: string;
 }

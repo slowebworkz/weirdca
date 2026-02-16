@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
-vi.mock("../src/utils", () => ({
+vi.mock("@scraper/utils", () => ({
   BASE_URL: "https://www.weirdca.com",
   DELAY_MS: 0,
   fetchPage: vi.fn(),
@@ -11,13 +11,13 @@ vi.mock("../src/utils", () => ({
   writeJSON: vi.fn().mockResolvedValue("/data/locations.json"),
 }));
 
-vi.mock("../src/parsers", () => ({
+vi.mock("@scraper/parsers", () => ({
   parseLocationPage: vi.fn(),
 }));
 
-import { scrapeLocations } from "../src/scrape-locations";
-import { fetchPage } from "../src/utils";
-import { parseLocationPage } from "../src/parsers";
+import { scrapeLocations } from "@scraper/scrape-locations";
+import { fetchPage } from "@scraper/utils";
+import { parseLocationPage } from "@scraper/parsers";
 import type { Location } from "@repo/types";
 
 const mockFetchPage = vi.mocked(fetchPage);
@@ -27,19 +27,22 @@ const fakeLocation: Location = {
   id: 1,
   slug: "mystery-spot-santa-cruz",
   title: "Mystery Spot",
-  address: "465 Mystery Spot Rd",
-  city: "Santa Cruz",
-  county: "Santa Cruz",
-  state: "California",
-  zip: "95065",
-  latitude: 37.0042,
-  longitude: -122.0024,
+  location: {
+    address: "465 Mystery Spot Rd",
+    city: "Santa Cruz",
+    county: "Santa Cruz",
+    state: "California",
+    zip: "95065",
+    geo: { latitude: 37.0042, longitude: -122.0024 },
+  },
   category: "Roadside Attractions",
   subcategory: null,
   description: "A gravitational anomaly.",
   images: [],
   relatedLocations: [],
   comments: [],
+  outsideLinks: [],
+  outsideReferences: [],
   dateCreated: "2005-03-12",
   dateEdited: "2023-08-01",
 };

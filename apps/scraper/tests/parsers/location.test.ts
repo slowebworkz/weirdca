@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { parseLocationPage } from "../../src/parsers/location";
+import { parseLocationPage } from "@scraper/parsers";
 
 function buildLocationHTML({
   title = "Mystery Spot - Weird California",
@@ -304,5 +304,24 @@ describe("parseLocationPage", () => {
     const result = parseLocationPage(html, 1)!;
     expect(result.dateCreated).toBe("2005-03-12");
     expect(result.dateEdited).toBe("2023-08-01");
+  });
+
+  it("deduplicates images that appear in both picture divs and lightbox links", () => {
+    // The default HTML has lightbox links inside picture divs, so they match
+    // both selectors. parseImages should deduplicate by href.
+    const html = buildLocationHTML({});
+    const result = parseLocationPage(html, 1)!;
+    const hrefs = result.images.map((img) => img.href);
+    const unique = new Set(hrefs);
+    expect(hrefs).toHaveLength(unique.size);
+  });
+
+  it("returns empty outsideReferences when header exists but no list items", () => {
+    const html = buildLocationHTML({}).replace(
+      "</body>",
+      `<p><b>Outside References:</b></p><ul></ul></body>`,
+    );
+    const result = parseLocationPage(html, 1)!;
+    expect(result.outsideReferences).toEqual([]);
   });
 });

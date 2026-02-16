@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
-vi.mock("../src/utils", () => ({
+vi.mock("@scraper/utils", () => ({
   BASE_URL: "https://www.weirdca.com",
   DELAY_MS: 0,
   fetchPage: vi.fn(),
@@ -11,8 +11,8 @@ vi.mock("../src/utils", () => ({
   writeJSON: vi.fn().mockResolvedValue("/data/categories.json"),
 }));
 
-import { scrapeCategories } from "../src/scrape-categories";
-import { fetchPage } from "../src/utils";
+import { scrapeCategories } from "@scraper/scrape-categories";
+import { fetchPage } from "@scraper/utils";
 
 const mockFetchPage = vi.mocked(fetchPage);
 

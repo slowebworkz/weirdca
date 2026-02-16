@@ -9,7 +9,7 @@ import {
   makeSlug,
   sleep,
   writeJSON,
-} from "./utils";
+} from "@scraper/utils";
 
 async function discoverCategories(): Promise<Map<number, string>> {
   log("Discovering categories from homepage...");

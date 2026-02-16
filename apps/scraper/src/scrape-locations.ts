@@ -1,5 +1,5 @@
 import type { Location } from "@repo/types";
-import { parseLocationPage } from "./parsers";
+import { parseLocationPage } from "@scraper/parsers";
 import {
   BASE_URL,
   DELAY_MS,
@@ -8,7 +8,7 @@ import {
   log,
   sleep,
   writeJSON,
-} from "./utils";
+} from "@scraper/utils";
 
 async function scrapeLocation(id: number): Promise<Location | null> {
   try {

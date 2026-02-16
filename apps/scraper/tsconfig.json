@@ -3,7 +3,14 @@
   "compilerOptions": {
     "module": "ESNext",
     "moduleResolution": "Bundler",
-    "noEmit": true
+    "noEmit": true,
+    "paths": {
+      "@scraper/*": ["./src/*"],
+      "@scraper/parsers": ["./src/parsers/index.ts"],
+      "@scraper/parsers/*": ["./src/parsers/*"],
+      "@scraper/utils": ["./src/utils/index.ts"],
+      "@scraper/utils/*": ["./src/utils/*"]
+    }
   },
-  "include": ["src"]
+  "include": ["src", "tests"]
 }
