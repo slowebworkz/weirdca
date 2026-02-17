@@ -2,17 +2,20 @@ import type { Location } from "@repo/types";
 import { parseLocationPage } from "@scraper/parsers";
 import {
   BASE_URL,
+  CONCURRENCY,
   DELAY_MS,
   error,
-  fetchPage,
+  fetchPageWithRetry,
   log,
-  sleep,
   writeJSON,
 } from "@scraper/utils";
+import PQueue from "p-queue";
 
 async function scrapeLocation(id: number): Promise<Location | null> {
   try {
-    const html = await fetchPage(`${BASE_URL}/location.php?location=${id}`);
+    const html = await fetchPageWithRetry(
+      `${BASE_URL}/location.php?location=${id}`,
+    );
     return parseLocationPage(html, id);
   } catch (err) {
     error(`Failed to scrape location ${id}:`, err);
@@ -26,14 +29,26 @@ export async function scrapeLocations(): Promise<Location[]> {
 
   log(`Scraping locations 1 through ${MAX_ID}...`);
 
+  const queue = new PQueue({
+    concurrency: CONCURRENCY,
+    interval: DELAY_MS,
+    intervalCap: CONCURRENCY,
+  });
+
   for (let id = 1; id <= MAX_ID; id++) {
-    const location = await scrapeLocation(id);
-    if (location) {
-      locations.push(location);
-      log(`[${id}/${MAX_ID}] ${location.title}`);
-    }
-    await sleep(DELAY_MS);
+    const currentId = id;
+    queue.add(async () => {
+      const location = await scrapeLocation(currentId);
+      if (location) {
+        locations.push(location);
+        log(`[${currentId}/${MAX_ID}] ${location.title}`);
+      }
+    });
   }
+
+  await queue.onIdle();
+
+  locations.sort((a, b) => a.id - b.id);
 
   const outputPath = await writeJSON("locations.json", locations);
   log(`\nDone! Scraped ${locations.length} locations to ${outputPath}`);

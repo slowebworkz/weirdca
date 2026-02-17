@@ -2,8 +2,9 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 
 vi.mock("@scraper/utils", () => ({
   BASE_URL: "https://www.weirdca.com",
+  CONCURRENCY: 1,
   DELAY_MS: 0,
-  fetchPage: vi.fn(),
+  fetchPageWithRetry: vi.fn(),
   log: vi.fn(),
   error: vi.fn(),
   makeSlug: vi.fn((name: string) => name.toLowerCase().replace(/\s+/g, "-")),
@@ -16,11 +17,11 @@ vi.mock("@scraper/parsers", () => ({
 }));
 
 import { scrapeLocations } from "@scraper/scrape-locations";
-import { fetchPage } from "@scraper/utils";
+import { fetchPageWithRetry } from "@scraper/utils";
 import { parseLocationPage } from "@scraper/parsers";
 import type { Location } from "@repo/types";
 
-const mockFetchPage = vi.mocked(fetchPage);
+const mockFetchPage = vi.mocked(fetchPageWithRetry);
 const mockParseLocationPage = vi.mocked(parseLocationPage);
 
 const fakeLocation: Location = {

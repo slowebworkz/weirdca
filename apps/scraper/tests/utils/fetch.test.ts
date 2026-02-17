@@ -1,5 +1,10 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import { fetchPage, sleep, writeJSON } from "@scraper/utils/fetch";
+import {
+  fetchPage,
+  fetchPageWithRetry,
+  sleep,
+  writeJSON,
+} from "@scraper/utils/fetch";
 
 vi.mock("node:fs/promises", () => ({
   mkdir: vi.fn().mockResolvedValue(undefined),
@@ -37,6 +42,52 @@ describe("fetchPage", () => {
     await expect(fetchPage("https://example.com/missing")).rejects.toThrow(
       "HTTP 404",
     );
+  });
+});
+
+describe("fetchPageWithRetry", () => {
+  beforeEach(() => {
+    vi.stubGlobal("fetch", vi.fn());
+  });
+
+  afterEach(() => {
+    vi.restoreAllMocks();
+  });
+
+  it("returns response text on success without retrying", async () => {
+    const mockFetch = vi.mocked(fetch);
+    mockFetch.mockResolvedValue({
+      ok: true,
+      text: () => Promise.resolve("<html>OK</html>"),
+    } as Response);
+
+    const result = await fetchPageWithRetry("https://example.com");
+    expect(result).toBe("<html>OK</html>");
+    expect(mockFetch).toHaveBeenCalledTimes(1);
+  });
+
+  it("retries on transient failure and succeeds", async () => {
+    const mockFetch = vi.mocked(fetch);
+    mockFetch
+      .mockRejectedValueOnce(new Error("Network error"))
+      .mockResolvedValueOnce({
+        ok: true,
+        text: () => Promise.resolve("<html>OK</html>"),
+      } as Response);
+
+    const result = await fetchPageWithRetry("https://example.com");
+    expect(result).toBe("<html>OK</html>");
+    expect(mockFetch).toHaveBeenCalledTimes(2);
+  });
+
+  it("throws after exhausting retries", { timeout: 15_000 }, async () => {
+    const mockFetch = vi.mocked(fetch);
+    mockFetch.mockRejectedValue(new Error("Network error"));
+
+    await expect(
+      fetchPageWithRetry("https://example.com/down"),
+    ).rejects.toThrow("Network error");
+    expect(mockFetch).toHaveBeenCalledTimes(4); // 1 initial + 3 retries
   });
 });
 

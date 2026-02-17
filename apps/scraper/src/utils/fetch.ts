@@ -1,4 +1,5 @@
 import { mkdir, writeFile } from "node:fs/promises";
+import pRetry from "p-retry";
 import { DATA_DIR } from "./constants";
 
 export async function fetchPage(url: string): Promise<string> {
@@ -7,6 +8,10 @@ export async function fetchPage(url: string): Promise<string> {
     throw new Error(`HTTP ${response.status} for ${url}`);
   }
   return response.text();
+}
+
+export function fetchPageWithRetry(url: string): Promise<string> {
+  return pRetry(() => fetchPage(url), { retries: 3, minTimeout: 500 });
 }
 
 export function sleep(ms: number): Promise<void> {

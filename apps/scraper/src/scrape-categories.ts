@@ -2,18 +2,19 @@ import * as cheerio from "cheerio";
 import type { Category } from "@repo/types";
 import {
   BASE_URL,
+  CONCURRENCY,
   DELAY_MS,
   error,
-  fetchPage,
+  fetchPageWithRetry,
   log,
   makeSlug,
-  sleep,
   writeJSON,
 } from "@scraper/utils";
+import PQueue from "p-queue";
 
 async function discoverCategories(): Promise<Map<number, string>> {
   log("Discovering categories from homepage...");
-  const html = await fetchPage(BASE_URL);
+  const html = await fetchPageWithRetry(BASE_URL);
   const $ = cheerio.load(html);
   const categories = new Map<number, string>();
 
@@ -34,32 +35,44 @@ export async function scrapeCategories(): Promise<Category[]> {
   const discoveredCategories = await discoverCategories();
   const categories: Category[] = [];
 
+  const queue = new PQueue({
+    concurrency: CONCURRENCY,
+    interval: DELAY_MS,
+    intervalCap: CONCURRENCY,
+  });
+
   for (const [id, name] of discoveredCategories) {
-    log(`Scraping category: ${name} (ID ${id})...`);
-    let locationCount = 0;
+    queue.add(async () => {
+      log(`Scraping category: ${name} (ID ${id})...`);
+      let locationCount = 0;
 
-    try {
-      const html = await fetchPage(`${BASE_URL}/index.php?type=${id}`);
-      const $ = cheerio.load(html);
-      const locationLinks = new Set<string>();
-      $('a[href*="location.php?location="]').each((_, el) => {
-        const href = $(el).attr("href");
-        if (href) locationLinks.add(href);
+      try {
+        const html = await fetchPageWithRetry(
+          `${BASE_URL}/index.php?type=${id}`,
+        );
+        const $ = cheerio.load(html);
+        const locationLinks = new Set<string>();
+        $('a[href*="location.php?location="]').each((_, el) => {
+          const href = $(el).attr("href");
+          if (href) locationLinks.add(href);
+        });
+        locationCount = locationLinks.size;
+      } catch (err) {
+        error(`Failed to scrape category ${name}:`, err);
+      }
+
+      categories.push({
+        id,
+        slug: makeSlug(name),
+        name,
+        locationCount,
       });
-      locationCount = locationLinks.size;
-    } catch (err) {
-      error(`Failed to scrape category ${name}:`, err);
-    }
-
-    categories.push({
-      id,
-      slug: makeSlug(name),
-      name,
-      locationCount,
     });
-
-    await sleep(DELAY_MS);
   }
+
+  await queue.onIdle();
+
+  categories.sort((a, b) => a.id - b.id);
 
   const outputPath = await writeJSON("categories.json", categories);
   log(`\nWrote ${categories.length} categories to ${outputPath}`);
