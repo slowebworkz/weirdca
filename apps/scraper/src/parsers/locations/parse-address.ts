@@ -10,9 +10,9 @@ export function parseAddress($: CheerioAPI): {
   const addressDiv = $("#address");
   const result = { addressDiv, address: "", city: "", zip: "" };
 
-  if (addressDiv.length) {
+  if (addressDiv.length > 0) {
     const addressText = textTrim(addressDiv);
-    if (addressText.length) {
+    if (addressText.length > 0) {
       result.city =
         textTrim(addressDiv.find('a[href^="search2.php?city="]').first()) || "";
 

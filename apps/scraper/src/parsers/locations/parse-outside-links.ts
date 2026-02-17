@@ -5,7 +5,7 @@ import { textTrim } from "@scraper/utils";
 export function parseOutsideLinks($: $): OutsideLink[] {
   const links: OutsideLink[] = [];
   const header = $("b:contains('Outside Links:')");
-  if (header.length) {
+  if (header.length > 0) {
     header
       .closest("p")
       .next("ul")

@@ -10,8 +10,8 @@ export function* imageAttrs<T extends AnyNode>(
   ...containers: Cheerio<T>[]
 ): Generator<LocationImage | null> {
   for (const div of parseImages(...containers)) {
-    const link = div.find<T>(LINK_PATTERN);
-    if (!link.length) {
+    const link = div.find<T>(`${LINK_PATTERN}`);
+    if (link.length === 0) {
       yield null;
       continue;
     }
@@ -32,8 +32,8 @@ export function* imageAttrs<T extends AnyNode>(
       caption: textTrim(div.find(".caption")) || null,
       thumbnailSrc: thumbSrc ? `${BASE_URL}/${thumbSrc}` : null,
       position: classToPosition(div.attr("class")),
-      width: width ? parseInt(width, 10) : null,
-      height: height ? parseInt(height, 10) : null,
+      width: width ? Number.parseInt(width, 10) : null,
+      height: height ? Number.parseInt(height, 10) : null,
     };
   }
 }

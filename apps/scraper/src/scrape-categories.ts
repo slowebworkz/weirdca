@@ -57,8 +57,8 @@ export async function scrapeCategories(): Promise<Category[]> {
           if (href) locationLinks.add(href);
         });
         locationCount = locationLinks.size;
-      } catch (err) {
-        error(`Failed to scrape category ${name}:`, err);
+      } catch (error_) {
+        error(`Failed to scrape category ${name}:`, error_);
       }
 
       categories.push({

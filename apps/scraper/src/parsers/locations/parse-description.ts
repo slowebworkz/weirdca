@@ -16,10 +16,10 @@ export function parseDescription(
       break;
     }
 
-    if (!current.is("p") || !text.length) continue;
-    if (current.find("b:contains('Comments')").length) continue;
+    if (!current.is("p") || text.length === 0) continue;
+    if (current.find("b:contains('Comments')").length > 0) continue;
 
-    const paraText = text.replace(/\s+/g, " ");
+    const paraText = text.replaceAll(/\s+/g, " ");
     if (paraText) parts.push(paraText);
   }
 

@@ -6,7 +6,7 @@ import type { $ } from "@scraper/utils";
 export function parseComments($: $): Comment[] {
   const comments: Comment[] = [];
   const header = $("b:contains('Comments:')");
-  if (header.length) {
+  if (header.length > 0) {
     header
       .closest("p")
       .next("ul")

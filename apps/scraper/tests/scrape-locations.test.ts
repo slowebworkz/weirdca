@@ -7,8 +7,8 @@ vi.mock("@scraper/utils", () => ({
   fetchPageWithRetry: vi.fn(),
   log: vi.fn(),
   error: vi.fn(),
-  makeSlug: vi.fn((name: string) => name.toLowerCase().replace(/\s+/g, "-")),
-  sleep: vi.fn().mockResolvedValue(undefined),
+  makeSlug: vi.fn((name: string) => name.toLowerCase().replaceAll(/\s+/g, "-")),
+  sleep: vi.fn().mockResolvedValue(),
   writeJSON: vi.fn().mockResolvedValue("/data/locations.json"),
 }));
 

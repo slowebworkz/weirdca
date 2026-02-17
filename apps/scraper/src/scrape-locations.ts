@@ -17,8 +17,8 @@ async function scrapeLocation(id: number): Promise<Location | null> {
       `${BASE_URL}/location.php?location=${id}`,
     );
     return parseLocationPage(html, id);
-  } catch (err) {
-    error(`Failed to scrape location ${id}:`, err);
+  } catch (error_) {
+    error(`Failed to scrape location ${id}:`, error_);
     return null;
   }
 }

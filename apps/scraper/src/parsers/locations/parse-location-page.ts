@@ -1,5 +1,5 @@
 import type { Location } from "@repo/types";
-import { makeSlug } from "@scraper/utils";
+import { makeSlug, textTrim } from "@scraper/utils";
 import * as cheerio from "cheerio";
 import { buildLocationDetails } from "./build-location-details";
 import { parseAddress } from "./parse-address";
@@ -11,7 +11,6 @@ import { parseImages } from "./parse-images";
 import { parseOutsideLinks } from "./parse-outside-links";
 import { parseOutsideReferences } from "./parse-outside-references";
 import { parseRelatedLocations } from "./parse-related-locations";
-import { textTrim } from "@scraper/utils";
 
 export function parseLocationPage(html: string, id: number): Location | null {
   const $ = cheerio.load(html);

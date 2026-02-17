@@ -11,7 +11,7 @@ export function parseCounty($: $): string {
     );
 
     if (captureGroup(match, 1)) {
-      result = captureGroup(match, 1).replace(/-/g, " ");
+      result = captureGroup(match, 1).replaceAll("-", " ");
     }
   }
 

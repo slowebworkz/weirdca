@@ -13,5 +13,5 @@ export function captureGroup(
 
 /** Strip HTML tags from a string. */
 export function stripHtml(str: string): string {
-  return str.replace(/<[^>]*>/g, "");
+  return str.replaceAll(/<[^>]*>/g, "");
 }

@@ -13,6 +13,7 @@
   "dependencies": {
     "@repo/types": "workspace:*",
     "cheerio": "^1.2.0",
+    "domhandler": "^5.0.3",
     "p-queue": "^9.1.0",
     "p-retry": "^7.1.1",
     "slugify": "^1.6.6"
@@ -20,11 +21,13 @@
   "devDependencies": {
     "@repo/eslint-config": "workspace:*",
     "@repo/typescript-config": "workspace:*",
-    "domhandler": "^5.0.3",
     "eslint": "^9.39.2",
     "tsx": "^4.21.0",
     "typescript": "5.9.3",
     "vite-tsconfig-paths": "^6.1.1",
     "vitest": "^3.2.1"
+  },
+  "engines": {
+    "node": ">=22"
   }
 }

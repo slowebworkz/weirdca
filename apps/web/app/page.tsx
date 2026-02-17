@@ -33,7 +33,7 @@ export default function Home() {
           ].map((category) => (
             <a
               key={category}
-              href={`/category/${category.toLowerCase().replace(/\s+/g, "-")}`}
+              href={`/category/${category.toLowerCase().replaceAll(/\s+/g, "-")}`}
               className="rounded-lg border border-gray-200 p-4 transition-colors hover:bg-gray-50"
             >
               {category}

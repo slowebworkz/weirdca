@@ -14,17 +14,17 @@ export function parseRelatedLocations($: $): RelatedLocation[] {
     const relTitle = stripHtml(parts[0] ?? "").trim();
     const distanceText = parts.find((p) => p.includes("Miles Away")) || "";
     const distanceMatch = distanceText.match(/([\d.]+)\s*Miles?\s*Away/i);
-    const relCity = stripHtml(parts[parts.length - 1] ?? "")
+    const relCity = stripHtml(parts.at(-1) ?? "")
       .replace(/,\s*California$/, "")
       .trim();
 
     related.push({
-      id: parseInt(captureGroup(idMatch, 1)),
+      id: Number.parseInt(captureGroup(idMatch, 1)),
       slug: makeSlug(relTitle, relCity),
       title: relTitle,
       city: relCity,
       distanceMiles: distanceMatch
-        ? parseFloat(captureGroup(distanceMatch, 1))
+        ? Number.parseFloat(captureGroup(distanceMatch, 1))
         : 0,
     });
   });

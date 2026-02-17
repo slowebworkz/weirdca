@@ -7,8 +7,8 @@ import {
 } from "@scraper/utils/fetch";
 
 vi.mock("node:fs/promises", () => ({
-  mkdir: vi.fn().mockResolvedValue(undefined),
-  writeFile: vi.fn().mockResolvedValue(undefined),
+  mkdir: vi.fn().mockResolvedValue(),
+  writeFile: vi.fn().mockResolvedValue(),
 }));
 
 describe("fetchPage", () => {

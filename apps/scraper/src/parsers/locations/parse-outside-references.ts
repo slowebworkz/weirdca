@@ -5,7 +5,7 @@ import { captureGroup, textTrim } from "@scraper/utils";
 export function parseOutsideReferences($: $): OutsideReference[] {
   const refs: OutsideReference[] = [];
   const header = $("b:contains('Outside References:')");
-  if (header.length) {
+  if (header.length > 0) {
     header
       .closest("p")
       .next("ul")
@@ -28,7 +28,7 @@ export function parseOutsideReferences($: $): OutsideReference[] {
           refs.push({
             url,
             title,
-            year: parseInt(captureGroup(match, 1), 10),
+            year: Number.parseInt(captureGroup(match, 1), 10),
             author: captureGroup(match, 2),
             ...(pages ? { pages } : {}),
           });

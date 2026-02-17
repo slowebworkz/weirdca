@@ -12,7 +12,10 @@ export function buildLocationDetails(
 
   const geo: Geo | undefined =
     latStr && lngStr
-      ? { latitude: parseFloat(latStr), longitude: parseFloat(lngStr) }
+      ? {
+          latitude: Number.parseFloat(latStr),
+          longitude: Number.parseFloat(lngStr),
+        }
       : undefined;
 
   const entries = Object.entries<string | Geo | undefined>({
