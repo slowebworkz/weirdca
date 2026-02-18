@@ -1,0 +1,13 @@
+{
+  "photoGallery": "Photo Gallery",
+  "nearbyWeird": "Nearby Weird",
+  "address": "Address",
+  "category": "Category",
+  "created": "Created",
+  "lastEdited": "Last Edited",
+  "outsideLinks": "Outside Links",
+  "outsideReferences": "Outside References",
+  "milesAway": "{distance} miles away",
+  "comments": "Comments ({count})",
+  "noComments": "No comments yet."
+}

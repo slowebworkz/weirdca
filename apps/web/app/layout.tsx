@@ -1,53 +1,44 @@
+import { spaceGrotesk } from "@/fonts";
+import { buildMetadata } from "@/lib";
 import type { Metadata } from "next";
-import localFont from "next/font/local";
+import { getTranslations } from "next-intl/server";
 import Link from "next/link";
+import type { ReactNode } from "react";
 import { SiteLogo } from "./components/site-logo";
 import "./globals.css";
+import navEntries from "./nav.json" with { type: "json" };
 
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-});
-
-export const metadata: Metadata = {
-  title: {
-    default: "Weird California",
-    template: "%s | Weird California",
-  },
-  description:
-    "Documenting the strange, supernatural, and unconventional attractions across California.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations("site");
+  return buildMetadata({
+    name: t("name"),
+    description: t("tagline"),
+    twitter: t("twitter"),
+    baseUrl: process.env.NEXT_PUBLIC_BASE_URL,
+  });
+}
 
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: ReactNode;
 }>) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} font-sans antialiased`}>
+      <body className={`${spaceGrotesk.variable}`} suppressHydrationWarning>
         <header className="border-b border-gray-800 bg-gray-950">
           <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
             <SiteLogo size="sm" />
             <div className="flex gap-6 text-sm text-gray-300">
-              <Link
-                href="/map"
-                className="transition-colors hover:text-red-400"
-              >
-                Map
-              </Link>
-              <Link
-                href="/search"
-                className="transition-colors hover:text-red-400"
-              >
-                Search
-              </Link>
-              <Link
-                href="/random"
-                className="transition-colors hover:text-red-400"
-              >
-                Random
-              </Link>
+              {navEntries.map(({ label, href }) => (
+                <Link
+                  key={href}
+                  href={href}
+                  className="transition-colors hover:text-red-400"
+                >
+                  {label}
+                </Link>
+              ))}
             </div>
           </nav>
         </header>

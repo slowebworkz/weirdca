@@ -5,7 +5,11 @@
       {
         "name": "next"
       }
-    ]
+    ],
+    "paths": {
+      "@/fonts": ["./app/fonts/index"],
+      "@/lib": ["./lib/index"]
+    }
   },
   "include": [
     "**/*.ts",
