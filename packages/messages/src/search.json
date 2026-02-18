@@ -1,0 +1,7 @@
+{
+  "title": "Search",
+  "placeholder": "Search locations...",
+  "results": "Showing {count} results for \"{query}\"",
+  "noResults": "No results found for \"{query}\".",
+  "hint": "Search by name, city, county, or category."
+}

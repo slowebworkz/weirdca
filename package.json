@@ -20,5 +20,10 @@
   "packageManager": "pnpm@9.0.0",
   "engines": {
     "node": ">=18"
+  },
+  "pnpm": {
+    "overrides": {
+      "@swc/helpers": "^0.5.17"
+    }
   }
 }

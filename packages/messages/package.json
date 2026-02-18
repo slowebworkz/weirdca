@@ -1,0 +1,25 @@
+{
+  "name": "@repo/messages",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./index.ts",
+    "./nav": "./src/nav.json",
+    "./site": "./src/site.json",
+    "./home": "./src/home.json",
+    "./location": "./src/location.json",
+    "./category": "./src/category.json",
+    "./county": "./src/county.json",
+    "./city": "./src/city.json",
+    "./search": "./src/search.json",
+    "./map": "./src/map.json",
+    "./common": "./src/common.json",
+    "./types": "./types.ts"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "type-fest": "^5.4.4",
+    "typescript": "5.9.3"
+  }
+}
