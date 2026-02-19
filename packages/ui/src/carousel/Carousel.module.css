@@ -1,0 +1,18 @@
+.carousel {
+  @apply relative block w-full;
+
+  --carousel-bg: transparent;
+}
+
+.body {
+  @apply w-full overflow-hidden;
+  padding: 1.25rem 0 3.125rem;
+}
+
+.slider {
+  @apply relative grid auto-cols-fr;
+  @apply transition-[transform];
+
+  --tw-ease: ease-in-out;
+  --tw-duration: 1000ms;
+}

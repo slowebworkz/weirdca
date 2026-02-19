@@ -1,0 +1,21 @@
+.header {
+  background-color: var(--color-page-header);
+}
+
+.nav {
+  @apply flex items-center justify-between;
+  @apply w-full mx-auto;
+}
+
+.main {
+  @apply grid auto-rows-fr;
+  @apply grid-cols-[repeat(var(--grid-layout-divisions),minmax(0,1fr))];
+  @apply grid-rows-[repeat(var(--grid-layout-divisions),minmax(0,auto))];
+  @apply [grid-template-areas:var(--grid-areas)];
+  @apply w-full mx-auto;
+}
+
+:root {
+  --grid-layout-divisions: 12;
+  --grid-areas: ". hero hero hero hero hero hero hero hero hero hero .";
+}

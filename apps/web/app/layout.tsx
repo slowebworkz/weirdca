@@ -1,12 +1,13 @@
 import { spaceGrotesk } from "@/fonts";
 import { buildMetadata } from "@/lib";
 import type { Metadata } from "next";
+import { useTranslations } from "next-intl";
 import { getTranslations } from "next-intl/server";
-import Link from "next/link";
-import type { ReactNode } from "react";
+import type { JSX, ReactNode } from "react";
 import { SiteLogo } from "./components/site-logo";
 import "./globals.css";
-import navEntries from "./nav.json" with { type: "json" };
+import styles from "./layout.module.css";
+import { PageHeader } from "./page/PageHeader";
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("site");
@@ -22,27 +23,18 @@ export default function RootLayout({
   children,
 }: Readonly<{
   children: ReactNode;
-}>) {
+}>): JSX.Element {
+  const t = useTranslations("page");
+
   return (
     <html lang="en">
       <body className={`${spaceGrotesk.variable}`} suppressHydrationWarning>
-        <header className="border-b border-gray-800 bg-gray-950">
-          <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
-            <SiteLogo size="sm" />
-            <div className="flex gap-6 text-sm text-gray-300">
-              {navEntries.map(({ label, href }) => (
-                <Link
-                  key={href}
-                  href={href}
-                  className="transition-colors hover:text-red-400"
-                >
-                  {label}
-                </Link>
-              ))}
-            </div>
-          </nav>
-        </header>
-        <main className="mx-auto max-w-7xl px-6 py-8">{children}</main>
+        <PageHeader topNavigationLabel={t("top_navigation")}>
+          <SiteLogo size="sm" />
+        </PageHeader>
+        <main className={`${styles.main} max-w-content px-6 py-8`}>
+          {children}
+        </main>
       </body>
     </html>
   );
