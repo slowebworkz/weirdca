@@ -1,5 +1,12 @@
 import { Creepster } from "next/font/google";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
+import styles from "./siteLogo.module.css";
+
+const Logos = ["sm", "md", "lg"] as const;
+
+// Define the allowed size values
+type Logo = Record<"size", (typeof Logos)[number]>;
 
 const creepster = Creepster({
   weight: "400",
@@ -7,20 +14,24 @@ const creepster = Creepster({
   display: "swap",
 });
 
-export function SiteLogo({ size = "md" }: { size?: "sm" | "md" | "lg" }) {
-  const sizeClasses = {
-    sm: "text-2xl",
-    md: "text-4xl",
-    lg: "text-6xl sm:text-7xl",
-  };
+const SIZES: Record<Logo["size"], string> = {
+  sm: "text-2xl",
+  md: "text-4xl",
+  lg: "text-6xl sm:text-7xl",
+} as const;
+
+export function SiteLogo({ size = "md" }: Logo) {
+  const t = useTranslations("site");
 
   return (
-    <Link href="/" className="group inline-block">
+    <Link href="/" className={`${styles.siteLogo} group`}>
       <span
-        className={`${creepster.className} ${sizeClasses[size]} select-none tracking-wide text-red-700 transition-all duration-300 group-hover:text-red-500 group-hover:drop-shadow-[0_0_12px_rgba(220,38,38,0.5)]`}
+        className={`${creepster.className} ${SIZES[size]} ${styles.siteLogo__span} tracking-wide text-red-700 group-hover:text-red-500 group-hover:drop-shadow-red-glow`}
+        aria-hidden="true"
       >
-        Weird California
+        {t("name")}
       </span>
+      <span className="sr-only">{`${t("name")} Home`}</span>
     </Link>
   );
 }

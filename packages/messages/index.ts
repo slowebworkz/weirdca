@@ -1,5 +1,6 @@
 import nav from "./src/nav.json" with { type: "json" };
 import site from "./src/site.json" with { type: "json" };
+import page from "./src/page.json" with { type: "json" };
 import home from "./src/home.json" with { type: "json" };
 import location from "./src/location.json" with { type: "json" };
 import category from "./src/category.json" with { type: "json" };
@@ -13,6 +14,7 @@ import type { LeafPaths } from "./types.ts";
 const messages = {
   nav,
   site,
+  page,
   home,
   location,
   category,

@@ -1,7 +1,14 @@
 @import "tailwindcss";
 
+@theme {
+  --color-page-header: var(--color-gray-950);
+  --color-red-glow: oklch(0.577 0.215 27.4 / 0.5);
+  --drop-shadow-red-glow: 0 0 12px var(--color-red-glow);
+  --width-content: 80rem;
+}
+
 @layer base {
-  html {
+  :root {
     font-size: 16px;
   }
 

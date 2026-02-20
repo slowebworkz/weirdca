@@ -1,0 +1,8 @@
+.siteLogo {
+  @apply inline-block;
+}
+
+.siteLogo__span {
+  @apply select-none;
+  @apply transition-all duration-300;
+}

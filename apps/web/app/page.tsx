@@ -1,7 +1,12 @@
 // import { SiteLogo } from "./components/site-logo";
+import { Hero } from "./components/hero";
 
 export default function Home() {
-  return <></>;
+  return (
+    <>
+      <Hero className="[grid-area:hero]" />
+    </>
+  );
 
   // return (
   //   <div>

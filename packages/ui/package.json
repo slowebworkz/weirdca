@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "exports": {
-    "./*": "./src/*.tsx"
+    "./*": "./src/*.tsx",
+    "./carousel": "./src/carousel/index.ts"
   },
   "scripts": {
     "lint": "eslint . --max-warnings 0",
@@ -20,5 +21,8 @@
   },
   "peerDependencies": {
     "react": "^19.2.4"
+  },
+  "dependencies": {
+    "lucide-react": "^0.574.0"
   }
 }
