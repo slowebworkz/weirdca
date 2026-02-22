@@ -1,61 +1,61 @@
-// import { SiteLogo } from "./components/site-logo";
 import { Hero } from "./components/hero";
+import { IntroParagraph } from "./_home/IntroParagraph";
 
 export default function Home() {
   return (
     <>
       <Hero className="[grid-area:hero]" />
+
+      <IntroParagraph />
+
+      {/* <section className="col-span-full mt-12 hidden">
+        <h2 className="text-2xl font-semibold text-white">Featured Locations</h2>
+        <div className="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
+          {Array.from({ length: 8 }).map((_, i) => (
+            <div
+              key={i}
+              className="flex flex-col overflow-hidden rounded-xl border border-gray-800 bg-gray-950"
+            >
+              <div className="aspect-4/3 bg-gray-900" />
+              <div className="flex flex-col gap-2 p-4">
+                <div className="h-3 w-16 rounded bg-gray-800" />
+                <div className="h-4 w-3/4 rounded bg-gray-800" />
+                <div className="h-3 w-1/2 rounded bg-gray-800" />
+              </div>
+            </div>
+          ))}
+        </div>
+      </section> */}
+
+      {/* <section className="col-span-full mt-16 hidden">
+        <h2 className="text-2xl font-semibold text-white">Browse by Category</h2>
+        <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
+          {CATEGORIES.map((name) => (
+            <Link
+              key={name}
+              href={`/category/${name.toLowerCase().replaceAll(/\s+/g, "-")}`}
+              className="flex items-center justify-between rounded-lg border border-gray-800 px-4 py-3 text-sm text-gray-300 transition-colors hover:border-red-800 hover:text-red-400"
+            >
+              {name}
+            </Link>
+          ))}
+        </div>
+      </section> */}
+
+      {/* <section className="col-span-full mt-16 mb-12 hidden">
+        <h2 className="text-2xl font-semibold text-white">Browse by County</h2>
+        <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
+          {COUNTIES.map((county) => (
+            <Link
+              key={county}
+              href={`/county/${encodeURIComponent(county)}`}
+              className="rounded-lg border border-gray-800 px-4 py-3 text-sm text-gray-300 transition-colors hover:border-red-800 hover:text-red-400"
+            >
+              {county} County
+            </Link>
+          ))}
+        </div>
+      </section> */}
     </>
   );
-
-  // return (
-  //   <div>
-  //     <div className="flex flex-col items-center rounded-xl bg-gray-950 px-6 py-12 text-center">
-  //       <h1>
-  //         <SiteLogo size="lg" />
-  //       </h1>
-  //       <p className="mt-4 text-lg text-gray-400">
-  //         Documenting the strange, supernatural, and unconventional attractions
-  //         across California.
-  //       </p>
-  //     </div>
-
-  //     <section className="mt-12">
-  //       <h2 className="text-2xl font-semibold">Categories</h2>
-  //       <div className="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
-  //         {/* TODO: Load from data */}
-  //         {[
-  //           "Hauntings",
-  //           "Roadside Attractions",
-  //           "Bizarre Buildings",
-  //           "Monsters",
-  //           "Legends",
-  //           "Forgotten Locales",
-  //           "Animals",
-  //           "History",
-  //           "Natural Weirdness",
-  //           "Missing Treasures",
-  //           "Weird",
-  //           "Seasonal Weird",
-  //         ].map((category) => (
-  //           <a
-  //             key={category}
-  //             href={`/category/${category.toLowerCase().replaceAll(/\s+/g, "-")}`}
-  //             className="rounded-lg border border-gray-200 p-4 transition-colors hover:bg-gray-50"
-  //           >
-  //             {category}
-  //           </a>
-  //         ))}
-  //       </div>
-  //     </section>
-
-  //     <section className="mt-12">
-  //       <h2 className="text-2xl font-semibold">Browse by County</h2>
-  //       <p className="mt-2 text-gray-600">
-  //         Explore all 58 California counties.
-  //       </p>
-  //       {/* TODO: County grid */}
-  //     </section>
-  //   </div>
-  // );
 }

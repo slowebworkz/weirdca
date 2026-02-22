@@ -1,0 +1,24 @@
+# Dependencies
+node_modules
+
+# Build outputs
+.next
+out
+build
+dist
+
+# Turbo cache
+.turbo
+
+# Lock files
+pnpm-lock.yaml
+
+# Generated files
+next-env.d.ts
+**/*.tsbuildinfo
+
+# Scraped data
+apps/scraper/data/
+
+# Coverage
+coverage

@@ -1,0 +1,42 @@
+@layer components {
+  .dropcap {
+    --drop-cap-lines: 2;
+    --drop-cap-font-family: var(--font-dropcap, var(--drop-cap-text-font-family));
+    --drop-cap-text-font-family: inherit;
+    --drop-cap-font-size: 3em;
+    --drop-cap-leading: 0.85;
+    --drop-cap-margin-top: 0.05em;
+    --drop-cap-margin-right: 0;
+    --drop-cap-padding-inline: 0.05em;
+    --drop-cap-padding-inline-end: 0.1em;
+
+    @apply font-(family-name:--drop-cap-text-font-family);
+  }
+
+  @supports (initial-letter: 2) {
+    .dropcap {
+      --drop-cap-margin-top: 0;
+      --drop-cap-padding-inline: 0;
+      --drop-cap-leading: revert;
+    }
+  }
+
+  .dropcap::first-letter {
+    @apply float-left;
+    @apply font-(family-name:--drop-cap-font-family);
+    @apply text-(length:--drop-cap-font-size)/(--drop-cap-leading);
+    @apply text-current;
+    @apply mt-(--drop-cap-margin-top);
+    @apply mr-(--drop-cap-margin-right);
+    @apply px-(--drop-cap-padding-inline);
+  }
+
+  @supports (initial-letter: 2) {
+    .dropcap::first-letter {
+      @apply float-none;
+      @apply pe-(--drop-cap-padding-inline-end);
+
+      initial-letter: var(--drop-cap-lines, 2);
+    }
+  }
+}

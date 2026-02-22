@@ -4,7 +4,8 @@
   "private": true,
   "exports": {
     "./*": "./src/*.tsx",
-    "./carousel": "./src/carousel/index.ts"
+    "./carousel": "./src/carousel/index.ts",
+    "./typography": "./src/typography/index.ts"
   },
   "scripts": {
     "lint": "eslint . --max-warnings 0",
