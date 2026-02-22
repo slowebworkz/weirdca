@@ -38,7 +38,7 @@ export function LocationCard({ location }: Props): JSX.Element {
         )}
       </div>
       <div className="flex flex-1 flex-col gap-1 p-4">
-        <span className="text-xs font-medium uppercase tracking-wide text-red-400">
+        <span className="text-xs font-medium tracking-wide text-red-400 uppercase">
           {location.category}
         </span>
         <h3 className="font-semibold text-white transition-colors group-hover:text-red-300">
