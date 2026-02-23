@@ -8,17 +8,10 @@
     ],
     "paths": {
       "@/fonts": ["./app/fonts/index"],
-      "@/lib": ["./lib/index"]
+      "@/lib": ["./lib/index"],
+      "@/lib/*": ["./lib/*"]
     }
   },
-  "include": [
-    "**/*.ts",
-    "**/*.tsx",
-    "next-env.d.ts",
-    "next.config.js",
-    ".next/types/**/*.ts"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+  "include": ["**/*.ts", "**/*.tsx", "next-env.d.ts", "next.config.js", ".next/types/**/*.ts"],
+  "exclude": ["node_modules"]
 }

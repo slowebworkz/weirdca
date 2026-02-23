@@ -19,7 +19,7 @@ export default async function CountiesPage() {
       const county = loc?.location?.county;
       if (county) seen.add(county as County);
     }
-    return Array.from(seen).toSorted();
+    return [...seen].toSorted();
   })();
 
   return (

@@ -1,4 +1,4 @@
-import { Hero } from "./components/hero";
+import { Hero } from "./components/index";
 import { IntroParagraph } from "./_home/IntroParagraph";
 
 export default function Home() {
