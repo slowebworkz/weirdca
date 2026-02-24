@@ -5,14 +5,19 @@
 }
 
 .body {
+  --carousel-body-padding-top: 1.25rem;
+  --carousel-body-padding-bottom: 3.125rem;
+
   @apply w-full overflow-hidden;
-  padding: 1.25rem 0 3.125rem;
+  @apply pt-(--carousel-body-padding-top);
+  @apply pb-(--carousel-body-padding-bottom);
 }
 
 .slider {
-  @apply relative grid auto-cols-fr;
+  @apply relative w-auto;
+  @apply grid auto-cols-fr;
   @apply transition-[transform];
 
-  --tw-ease: ease-in-out;
-  --tw-duration: 1000ms;
+  /* --tw-ease: ease-in-out; */
+  /* --tw-duration: 1000ms; */
 }

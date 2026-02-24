@@ -35,8 +35,8 @@ export default function RootLayout({ children }: RootLayoutProps): JSX.Element {
           logo={<SiteLogo size="md" />}
         >
           <>
-            {navEntries.map(({ label, href }) => (
-              <li key="href">
+            {navEntries.map(({ label, href }, index) => (
+              <li key={`${href}${index}`}>
                 <Link
                   href={href}
                   className="transition-colors hover:text-red-400"
