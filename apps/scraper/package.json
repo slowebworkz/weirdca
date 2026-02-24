@@ -4,6 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "format": "prettier --config node_modules/@repo/prettier-config/base.yaml --write .",
     "lint": "eslint",
     "test": "vitest run",
     "scrape": "tsx src/index.ts",
@@ -20,6 +21,7 @@
   },
   "devDependencies": {
     "@repo/eslint-config": "workspace:*",
+    "@repo/prettier-config": "workspace:*",
     "@repo/typescript-config": "workspace:*",
     "eslint": "^9.39.2",
     "tsx": "^4.21.0",
@@ -28,6 +30,6 @@
     "vitest": "^3.2.1"
   },
   "engines": {
-    "node": ">=22"
+    "node": ">=22.16.0"
   }
 }

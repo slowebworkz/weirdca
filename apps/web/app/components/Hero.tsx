@@ -12,7 +12,7 @@ export async function Hero({
   return (
     <Box
       as={as}
-      className={`${className} ${styles.pageHero} rounded-xl bg-gray-950 px-6 py-16 ring-1 ring-gray-800 text-center text-white`}
+      className={`${className} ${styles.pageHero} rounded-xl bg-gray-950 px-6 py-16 text-center text-white ring-1 ring-gray-800`}
       {...props}
     >
       <Carousel />

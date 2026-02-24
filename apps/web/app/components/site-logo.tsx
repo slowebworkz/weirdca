@@ -1,18 +1,9 @@
-import { Creepster } from "next/font/google";
+import { creepster } from "@/fonts";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
-import styles from "./siteLogo.module.css";
+import styles from "./SiteLogo.module.css";
 
-const Logos = ["sm", "md", "lg"] as const;
-
-// Define the allowed size values
-type Logo = Record<"size", (typeof Logos)[number]>;
-
-const creepster = Creepster({
-  weight: "400",
-  subsets: ["latin"],
-  display: "swap",
-});
+type Logo = { size: "sm" | "md" | "lg" };
 
 const SIZES: Record<Logo["size"], string> = {
   sm: "text-2xl",
@@ -26,8 +17,7 @@ export function SiteLogo({ size = "md" }: Logo) {
   return (
     <Link href="/" className={`${styles.siteLogo} group`}>
       <span
-        className={`${creepster.className} ${SIZES[size]} ${styles.siteLogo__span} tracking-wide text-red-700 group-hover:text-red-500 group-hover:drop-shadow-red-glow`}
-        aria-hidden="true"
+        className={`${styles.siteLogo__span} ${creepster.className} ${SIZES[size]} tracking-wide text-red-700 group-hover:text-red-500 group-hover:drop-shadow-red-glow`}
       >
         {t("name")}
       </span>

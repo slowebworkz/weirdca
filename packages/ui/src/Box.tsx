@@ -1,9 +1,13 @@
 import { createElement } from "react";
 import type { ElementType, ReactElement, ComponentPropsWithRef } from "react";
 
-export type BoxProps<T extends ElementType = "div"> = {
+export type BoxProps<
+  T extends ElementType = "div",
+  P extends object = object,
+> = {
   as?: T;
-} & ComponentPropsWithRef<T>;
+} & ComponentPropsWithRef<T> &
+  P;
 
 export type PolymorphicComponent<TDefault extends ElementType = "div"> = {
   <T extends ElementType = TDefault>(props: BoxProps<T>): ReactElement;

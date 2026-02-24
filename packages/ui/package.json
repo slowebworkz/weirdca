@@ -4,15 +4,19 @@
   "private": true,
   "exports": {
     "./*": "./src/*.tsx",
-    "./carousel": "./src/carousel/index.ts"
+    "./carousel": "./src/carousel/index.ts",
+    "./typography": "./src/typography/index.ts",
+    "./page": "./src/page/index.ts"
   },
   "scripts": {
+    "format": "prettier --config node_modules/@repo/prettier-config/base.yaml --write .",
     "lint": "eslint . --max-warnings 0",
     "generate:component": "turbo gen react-component",
     "check-types": "tsc --noEmit"
   },
   "devDependencies": {
     "@repo/eslint-config": "workspace:*",
+    "@repo/prettier-config": "workspace:*",
     "@repo/typescript-config": "workspace:*",
     "@types/react": "19.2.14",
     "eslint": "^9.39.2",

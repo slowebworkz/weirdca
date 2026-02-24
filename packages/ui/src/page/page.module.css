@@ -1,0 +1,14 @@
+@layer components {
+  .header {
+    background-color: var(--color-page-header);
+  }
+
+  .nav {
+    @apply flex items-center justify-between;
+    @apply w-full mx-auto;
+  }
+
+  .nav ul {
+    @apply flex;
+  }
+}

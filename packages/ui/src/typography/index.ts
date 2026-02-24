@@ -1,0 +1,1 @@
+export { DropCap } from "./DropCap";

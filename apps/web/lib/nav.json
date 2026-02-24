@@ -1,0 +1,8 @@
+[
+  { "label": "Categories", "href": "/category" },
+  { "label": "Counties", "href": "/county" },
+  { "label": "Resources", "href": "/resources" },
+  { "label": "Map", "href": "/map" },
+  { "label": "Search", "href": "/search" },
+  { "label": "Random", "href": "/random" }
+]

@@ -1,0 +1,12 @@
+{
+  "name": "@repo/prettier-config",
+  "version": "0.0.0",
+  "private": true,
+  "exports": {
+    "./base": "./base.yaml",
+    "./next": "./next.yaml"
+  },
+  "peerDependencies": {
+    "prettier": ">=3"
+  }
+}
