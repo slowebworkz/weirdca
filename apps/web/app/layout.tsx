@@ -6,6 +6,7 @@ import type { Metadata } from "next";
 import { useTranslations } from "next-intl";
 import { getTranslations } from "next-intl/server";
 import Link from "next/link";
+import clsx from "clsx";
 import type { JSX, ReactNode } from "react";
 import { SiteLogo } from "./components/site-logo";
 import "./globals.css";
@@ -28,7 +29,7 @@ export default function RootLayout({ children }: RootLayoutProps): JSX.Element {
 
   return (
     <html lang="en">
-      <body className={`${spaceGrotesk.variable}`} suppressHydrationWarning>
+      <body className={spaceGrotesk.variable} suppressHydrationWarning>
         <PageHeader
           className={styles.header}
           nav-label={t("top_navigation")}
@@ -48,7 +49,7 @@ export default function RootLayout({ children }: RootLayoutProps): JSX.Element {
           </>
         </PageHeader>
 
-        <main className={`${styles.main} max-w-content px-6 py-8`}>
+        <main className={clsx(styles.main, "max-w-content px-6 py-8")}>
           {children}
         </main>
       </body>

@@ -1,5 +1,6 @@
 import type { BoxProps } from "@repo/ui/Box";
 import { Box, boxWithDefaultAs } from "@repo/ui/Box";
+import clsx from "clsx";
 import type { ReactNode, PropsWithChildren } from "react";
 import styles from "./page.module.css";
 
@@ -10,8 +11,13 @@ export type PageHeaderProps = Omit<BoxProps<"header">, "children"> &
   }>;
 
 const TopNav = boxWithDefaultAs("nav", {
-  className: `${styles.nav} max-w-content px-6 py-4`,
+  className: clsx(styles.nav, "max-w-content px-6 py-4"),
 });
+
+const RightNav = boxWithDefaultAs("ul", {
+  className: clsx(styles.nav_right, "text-sm text-gray-300"),
+});
+//flex gap-6 text-sm text-gray-300
 
 export const PageHeader = ({
   as = "header",
@@ -26,7 +32,7 @@ export const PageHeader = ({
       <TopNav aria-label={navLabel ?? undefined}>
         {logo}
 
-        <ul className="flex gap-6 text-sm text-gray-300">{children}</ul>
+        <RightNav>{children}</RightNav>
       </TopNav>
     </Box>
   );

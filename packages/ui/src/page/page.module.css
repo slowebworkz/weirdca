@@ -1,14 +1,14 @@
-@layer components {
-  .header {
-    background-color: var(--color-page-header);
-  }
+.header {
+  background-color: var(--color-page-header);
+}
 
-  .nav {
-    @apply flex items-center justify-between;
-    @apply w-full mx-auto;
-  }
+.nav {
+  @apply flex items-center justify-between;
+  @apply w-full mx-auto;
+  column-gap: 1em;
+}
 
-  .nav ul {
-    @apply flex;
-  }
+.nav_right {
+  @apply flex;
+  column-gap: inherit;
 }
