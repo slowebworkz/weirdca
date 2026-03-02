@@ -26,6 +26,12 @@
   "pnpm": {
     "overrides": {
       "@swc/helpers": "^0.5.17"
+    },
+    "peerDependencyRules": {
+      "ignoreMissing": [],
+      "allowedVersions": {
+        "@pigment-css/nextjs-plugin>next": "16"
+      }
     }
   }
 }

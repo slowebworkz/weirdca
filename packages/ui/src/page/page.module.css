@@ -1,14 +1,36 @@
-.header {
-  background-color: var(--color-page-header);
-}
+@layer components {
+  .page_root {
+    @apply flex flex-col;
+    @apply min-h-dvh;
+  }
 
-.nav {
-  @apply flex items-center justify-between;
-  @apply w-full mx-auto;
-  column-gap: 1em;
-}
+  .page_header {
+    @apply bg-(--color-page-header);
+    @apply text-(--color-white);
+  }
 
-.nav_right {
-  @apply flex;
-  column-gap: inherit;
+  .nav {
+    @apply flex items-end justify-between;
+    @apply w-full mx-auto;
+    column-gap: 1em;
+  }
+
+  .nav_right {
+    @apply flex ml-auto order-2;
+    column-gap: inherit;
+  }
+
+  .main {
+    @apply flex-1;
+    @apply py-[2vh];
+  }
+
+  .page_header,
+  .main {
+    @apply p-[1em];
+  }
+
+  .site_logo {
+    @apply order-1;
+  }
 }

@@ -1,4 +1,5 @@
-import { creepster } from "../fonts/creepster";
+import { logoText } from "@/fonts";
+import clsx from "clsx";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import styles from "./SiteLogo.module.css";
@@ -18,7 +19,12 @@ const SIZES: Record<Logo["size"], string> = {
 function LogoText({ name, size }: LogoTextProps) {
   return (
     <span
-      className={`${styles.siteLogo__span} ${creepster.className} ${SIZES[size]} tracking-wide text-red-700 group-hover:text-red-500 group-hover:drop-shadow-red-glow`}
+      className={clsx(
+        styles.siteLogo__span,
+        logoText.className,
+        SIZES[size],
+        "tracking-wide text-red-700 group-hover:text-red-500 group-hover:drop-shadow-red-glow",
+      )}
     >
       {name}
     </span>
@@ -33,7 +39,7 @@ export function SiteLogo({ size = "md" }: Logo) {
   const t = useTranslations("site");
 
   return (
-    <Link href="/" className={`${styles.siteLogo} group`}>
+    <Link href="/" className={clsx(styles.siteLogo, "group")}>
       <LogoText name={t("name")} size={size} />
       <LogoSRLabel name={t("name")} />
     </Link>

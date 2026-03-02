@@ -13,10 +13,6 @@
   }
 
   body {
-    @apply flex min-h-dvh flex-col font-sans antialiased;
-  }
-
-  main {
-    @apply flex-1;
+    @apply font-(family-name:--font-body) antialiased;
   }
 }
