@@ -1,8 +1,8 @@
 import { NavigationMenu } from "@base-ui/react/navigation-menu";
+import { clsx } from "clsx/lite";
 import type { ElementType } from "react";
 import type { Simplify } from "type-fest";
 import styles from "./page.module.css";
-import { clsx } from "clsx/lite";
 
 export type TopNavProps = Simplify<
   Omit<NavigationMenu.Root.Props, "linkAs"> & {
@@ -54,8 +54,10 @@ export const TopNav = ({
   ...props
 }: TopNavProps) => {
   return (
-    <NavigationMenu.Root className={clsx(styles.nav, className)} {...props}>
-      <NavigationMenu.List className={styles.nav_right}>
+    <NavigationMenu.Root className={clsx(styles.nav, "flex")} {...props}>
+      <NavigationMenu.List
+        className={clsx(styles.nav_right, "flex", className)}
+      >
         <TopNavLinks linkAs={linkAs} links={links} currentHref={currentHref} />
       </NavigationMenu.List>
 

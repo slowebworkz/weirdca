@@ -1,3 +1,12 @@
+.paragraph {
+  
+  
+  
+  
+  /* font-size: clamp(1rem, 0.95rem + 0.3vw, 1.125rem); */
+  /* line-height: 1.6; */
+}
+
 .dropcap {
   --drop-cap-lines: 2;
   --drop-cap-font-family: var(--font-dropcap, var(--drop-cap-text-font-family));

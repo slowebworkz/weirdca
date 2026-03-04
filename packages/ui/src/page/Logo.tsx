@@ -24,16 +24,17 @@ export const SiteLogo = ({
   linkAs: Link,
   link: href,
   caption,
+  className,
   ...props
 }: SiteLogoProps) => {
   if (Link && href) {
     return (
-      <Link href={href}>
+      <Link href={href} className={className}>
         <Logo {...props} />
         {caption && <LogoSpan>{caption}</LogoSpan>}
       </Link>
     );
   }
 
-  return <Logo {...props} />;
+  return <Logo className={className} {...props} />;
 };

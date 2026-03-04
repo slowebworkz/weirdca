@@ -1,8 +1,9 @@
-import type { CSSProperties, ElementType } from "react";
+import type { ElementType } from "react";
 import type { Simplify } from "type-fest";
 import type { BoxProps } from "../Box";
 import { Paragraph } from "./Paragraph";
 import styles from "./Typography.module.css";
+import { mergeStyleVars } from "#lib";
 
 export type DropCapProps<T extends ElementType = "p"> = Simplify<
   Omit<BoxProps<T>, "as"> & {
@@ -11,21 +12,6 @@ export type DropCapProps<T extends ElementType = "p"> = Simplify<
     capFont?: string;
   }
 >;
-
-function resolveStyle(
-  lines: DropCapProps["lines"],
-  textFont: string | undefined,
-  capFont: string | undefined,
-  style: CSSProperties | undefined,
-): CSSProperties | undefined {
-  const merged = { ...style } as CSSProperties;
-  if (Number(lines) > 0)
-    Object.assign(merged, { "--drop-cap-lines": String(lines) });
-  if (textFont)
-    Object.assign(merged, { "--drop-cap-text-font-family": textFont });
-  if (capFont) Object.assign(merged, { "--drop-cap-font-family": capFont });
-  return Object.keys(merged).length > 0 ? merged : undefined;
-}
 
 export function DropCap<T extends ElementType = "p">({
   lines,
@@ -41,7 +27,11 @@ export function DropCap<T extends ElementType = "p">({
   return (
     <Paragraph
       className={classes}
-      style={resolveStyle(lines, textFont, capFont, style)}
+      style={mergeStyleVars(style, {
+        "--drop-cap-lines": Number(lines) > 0 ? String(lines) : undefined,
+        "--drop-cap-text-font-family": textFont,
+        "--drop-cap-font-family": capFont,
+      })}
       {...props}
     >
       {children}

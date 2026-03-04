@@ -1,13 +1,13 @@
 import { Box } from "../Box";
-import styles from "./page.module.css";
-import { PageHeader as Header } from "./PageHeader";
-import { PageContent as Content } from "./PageContent";
-import { TopNav } from "./TopNavigation";
 import { SiteLogo as Logo } from "./Logo";
+import styles from "./page.module.css";
+import { PageContent as Content } from "./PageContent";
+import { PageHeader as Header } from "./PageHeader";
+import { TopNav } from "./TopNavigation";
+import { clsx } from "clsx/lite";
 
 const PageLayoutRoot = Box.boxWithDefaultAs("div", {
-  id: "root",
-  className: styles.page_root,
+  className: clsx(styles.page_root, "flex"),
 });
 
 export const PageLayout = Object.assign(PageLayoutRoot, {

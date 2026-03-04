@@ -29,12 +29,13 @@ export default function RootLayout({ children }: RootLayoutProps): JSX.Element {
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={bodyText.variable} suppressHydrationWarning>
-        <PageLayout>
-          <PageLayout.Header>
+        <PageLayout id="root">
+          <PageLayout.Header className="bg-page-header text-white">
             <PageLayout.TopNav
               aria-label={t("top_navigation")}
               linkAs={Link}
               links={navEntries}
+              className="order-2"
             >
               <PageLayout.Logo
                 linkAs={Link}

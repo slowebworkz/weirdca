@@ -11,3 +11,5 @@ export type { TopNavProps, TopNavLinksProps } from "./TopNavigation";
 
 export { SiteLogo } from "./Logo";
 export type { SiteLogoProps } from "./Logo";
+
+export { LayoutContainer } from "./LayoutContainer";
