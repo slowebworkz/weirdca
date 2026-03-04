@@ -39,6 +39,7 @@ export default function RootLayout({ children }: RootLayoutProps): JSX.Element {
               <PageLayout.Logo
                 linkAs={Link}
                 link="/"
+                caption={`${tSite("name")} Home`}
                 src={tSite("logo")}
                 alt={tSite("name")}
               />

@@ -5,6 +5,7 @@
   --color-red-glow: oklch(0.577 0.215 27.4 / 0.5);
   --drop-shadow-red-glow: 0 0 12px var(--color-red-glow);
   --width-content: 80rem;
+  --max-paragraph-width: 65ch;
 }
 
 @layer base {

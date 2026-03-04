@@ -16,6 +16,7 @@ export const unicornConfig = [
       "unicorn/filename-case": "off",
       "unicorn/prefer-top-level-await": "off",
       "unicorn/import-style": "off",
+      "unicorn/no-array-reduce": "off",
     },
   },
 ];

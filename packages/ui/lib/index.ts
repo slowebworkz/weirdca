@@ -1,0 +1,1 @@
+export { extractStrings } from "./extractStrings";

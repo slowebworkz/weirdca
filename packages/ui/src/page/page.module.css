@@ -22,15 +22,14 @@
 
   .main {
     @apply flex-1;
-    @apply py-[2vh];
-  }
-
-  .page_header,
-  .main {
-    @apply p-[1em];
   }
 
   .site_logo {
     @apply order-1;
   }
+}
+
+.page_header,
+.main {
+  @apply p-[1em];
 }

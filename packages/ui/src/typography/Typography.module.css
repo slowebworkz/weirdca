@@ -1,9 +1,3 @@
-@layer components {
-  .paragraph {
-    @apply max-w-(--max-paragraph-width);
-  }
-}
-
 .dropcap {
   --drop-cap-lines: 2;
   --drop-cap-font-family: var(--font-dropcap, var(--drop-cap-text-font-family));

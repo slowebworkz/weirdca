@@ -32,22 +32,22 @@ function mergeProps<TDefault extends ElementType, T extends ElementType>(
 ): Omit<BoxProps<T>, "as"> {
   const result: Record<string, unknown> = {};
 
-  for (const _props of [defaultProps, props]) {
-    if (_props && Object.keys(_props).length > 0) {
-      for (const key of Object.keys(_props)) {
-        if (key === "as") continue;
+  for (const source of [defaultProps, props]) {
+    if (!source) continue;
 
-        if (
-          key === "className" &&
-          typeof _props[key] === "string" &&
-          typeof result["className"] === "string"
-        ) {
-          result["className"] = clsx(result["className"], _props["className"]);
-          continue;
-        }
+    for (const [key, value] of Object.entries(source)) {
+      if (key === "as") continue;
 
-        result[key] = _props[key as keyof typeof _props];
+      if (
+        key === "className" &&
+        typeof value === "string" &&
+        typeof result.className === "string"
+      ) {
+        result.className = clsx(result.className, value);
+        continue;
       }
+
+      result[key] = value;
     }
   }
 
@@ -58,6 +58,8 @@ function mergeProps<TDefault extends ElementType, T extends ElementType>(
 function getDisplayName(defaultAs: ElementType) {
   return typeof defaultAs === "string" ? `Box(${defaultAs})` : "Box";
 }
+
+const boxCache = new Map<ElementType, PolymorphicComponent<ElementType>>();
 
 /**
  * Creates a pre-configured polymorphic `Box` with a fixed default element and default props.
@@ -70,19 +72,26 @@ function boxWithDefaultAs<TDefault extends ElementType = "div">(
   defaultAs: TDefault,
   defaultProps?: Partial<ComponentPropsWithRef<TDefault>>,
 ): PolymorphicComponent<TDefault> {
+  if (!defaultProps && boxCache.has(defaultAs)) {
+    return boxCache.get(defaultAs) as PolymorphicComponent<TDefault>;
+  }
+
   const Component = <T extends ElementType = TDefault>({
     as,
     ...props
   }: BoxProps<T>): ReactElement => {
-    return createElement(
-      (as ?? defaultAs) as ElementType,
-      mergeProps(defaultProps, props),
-    );
+    const Element = (as ?? defaultAs) as ElementType;
+
+    return createElement(Element, mergeProps(defaultProps, props));
   };
 
-  return Object.assign(Component, {
-    displayName: getDisplayName(defaultAs),
-  });
+  Component.displayName = getDisplayName(defaultAs);
+
+  if (!defaultProps) {
+    boxCache.set(defaultAs, Component);
+  }
+
+  return Component;
 }
 
 // 4️⃣ Export Box with a non-generic call signature so that child components using
