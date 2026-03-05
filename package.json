@@ -16,7 +16,7 @@
     "husky": "^9.1.7",
     "prettier": "^3.8.1",
     "prettier-plugin-tailwindcss": "^0.7.2",
-    "turbo": "^2.8.8",
+    "turbo": "^2.8.13",
     "typescript": "5.9.3"
   },
   "packageManager": "pnpm@9.0.0",
@@ -26,6 +26,12 @@
   "pnpm": {
     "overrides": {
       "@swc/helpers": "^0.5.17"
+    },
+    "peerDependencyRules": {
+      "ignoreMissing": [],
+      "allowedVersions": {
+        "@pigment-css/nextjs-plugin>next": "16"
+      }
     }
   }
 }

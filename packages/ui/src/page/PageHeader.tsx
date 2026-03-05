@@ -1,33 +1,25 @@
-import type { BoxProps } from "@repo/ui/Box";
-import { Box, boxWithDefaultAs } from "@repo/ui/Box";
-import type { ReactNode, PropsWithChildren } from "react";
+import type { ElementType, ReactNode } from "react";
+import type { BoxProps } from "../Box";
+import { Box } from "../Box";
+import { LayoutContainer } from "./LayoutContainer";
 import styles from "./page.module.css";
 
-export type PageHeaderProps = Omit<BoxProps<"header">, "children"> &
-  PropsWithChildren<{
-    "nav-label"?: string;
-    logo?: ReactNode;
-  }>;
+export type PageHeaderProps<T extends ElementType = "header"> = Omit<
+  BoxProps<T>,
+  "logo"
+> & {
+  logo?: ReactNode;
+};
 
-const TopNav = boxWithDefaultAs("nav", {
-  className: `${styles.nav} max-w-content px-6 py-4`,
+const Header = Box.boxWithDefaultAs("header", {
+  role: "banner",
+  className: styles.page_header,
 });
 
-export const PageHeader = ({
-  as = "header",
-  className,
-  children,
-  "nav-label": navLabel,
-  logo,
-  ...props
-}: PageHeaderProps) => {
+export const PageHeader = ({ children, ...props }: PageHeaderProps) => {
   return (
-    <Box as={as} className={className} {...props}>
-      <TopNav aria-label={navLabel ?? undefined}>
-        {logo}
-
-        <ul className="flex gap-6 text-sm text-gray-300">{children}</ul>
-      </TopNav>
-    </Box>
+    <Header {...props}>
+      <LayoutContainer className="flex">{children}</LayoutContainer>
+    </Header>
   );
 };

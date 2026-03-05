@@ -12,5 +12,8 @@ const JS_TS_FILES = ["**/*.{js,mjs,cjs,jsx,ts,mts,cts,tsx}"];
 export const typescriptConfig = [
   { ...js.configs.recommended, files: JS_TS_FILES },
   { ...eslintConfigPrettier, files: JS_TS_FILES },
-  ...tseslint.configs.recommended.map((cfg) => ({ ...cfg, files: JS_TS_FILES })),
+  ...tseslint.configs.recommended.map((cfg) => ({
+    ...cfg,
+    files: JS_TS_FILES,
+  })),
 ];

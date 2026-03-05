@@ -1,12 +1,15 @@
-import { Hero } from "./components/index";
+import { Hero } from "@repo/ui/layout";
+import { useTranslations } from "next-intl";
 import { IntroParagraph } from "./_home/IntroParagraph";
 
 export default function Home() {
+  const t = useTranslations("site");
+
   return (
     <>
-      <Hero className="[grid-area:hero]" />
+      <Hero className="bg-gray-950 ring-1 ring-gray-800 [grid-area:hero]"></Hero>
 
-      <IntroParagraph />
+      <IntroParagraph text={t("intro_paragraph")} />
 
       {/* <section className="col-span-full mt-12 hidden">
         <h2 className="text-2xl font-semibold text-white">Featured Locations</h2>

@@ -7,7 +7,7 @@
       }
     ],
     "paths": {
-      "@/fonts": ["./app/fonts/index"],
+      "@/fonts": ["./lib/fonts/index"],
       "@/lib": ["./lib/index"],
       "@/lib/*": ["./lib/*"]
     }

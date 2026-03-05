@@ -1,0 +1,4 @@
+.hero {
+  @apply flex flex-col items-center;
+  @apply text-center rounded-(--radius-xl);
+}

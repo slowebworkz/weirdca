@@ -1,14 +1,30 @@
-@layer components {
-  .header {
-    background-color: var(--color-page-header);
-  }
+.page_root {
+  @apply flex-col;
+  @apply w-full min-h-dvh;
+}
 
-  .nav {
-    @apply flex items-center justify-between;
-    @apply w-full mx-auto;
-  }
+.nav {
+  @apply items-end justify-between;
+  @apply w-full gap-x-[1em];
+}
 
-  .nav ul {
-    @apply flex;
-  }
+.nav_right {
+  @apply ml-auto gap-x-[1em] overflow-x-hidden;
+}
+
+.main {
+  @apply flex-1;
+}
+
+.site_logo {
+  @apply order-1;
+}
+
+.page_header .layout,
+.main .layout {
+  @apply p-[1em]; 
+}
+
+.layout {
+  @apply mx-auto;
 }

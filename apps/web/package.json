@@ -15,12 +15,24 @@
     "@repo/messages": "workspace:*",
     "@repo/types": "workspace:*",
     "@repo/ui": "workspace:*",
+    "clsx": "^2.1.1",
     "next": "16.1.6",
     "next-intl": "^4.8.3",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
     "tailwindcss": "^4.1.18"
   },
+  "imports": {
+    "#lib": "./lib/index.ts",
+    "#lib/*": "./lib/*.ts",
+    "#fonts": "./lib/fonts/index.ts"
+  },
+  "browserslist": [
+    "last 2 Chrome versions",
+    "last 2 Firefox versions",
+    "last 2 Safari versions",
+    "last 2 Edge versions"
+  ],
   "devDependencies": {
     "@repo/eslint-config": "workspace:*",
     "@repo/prettier-config": "workspace:*",
