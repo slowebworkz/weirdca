@@ -1,10 +1,10 @@
 .paragraph {
-  
-  
-  
-  
-  /* font-size: clamp(1rem, 0.95rem + 0.3vw, 1.125rem); */
-  /* line-height: 1.6; */
+  @apply text-[clamp(0.95em,3vw,1.15em)];
+  @apply leading-[clamp(1.6em,3vw,1.9em)];
+}
+
+.paragraph + .paragraph {
+  @apply mt-[clamp(0.5em,3vw,0.75em)];
 }
 
 .dropcap {

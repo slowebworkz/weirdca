@@ -1,6 +1,6 @@
 .page_root {
   @apply flex-col;
-  @apply min-h-dvh;
+  @apply w-full min-h-dvh;
 }
 
 .nav {
@@ -9,7 +9,7 @@
 }
 
 .nav_right {
-  @apply ml-auto gap-x-[inherit] order-2;
+  @apply ml-auto gap-x-[1em] overflow-x-hidden;
 }
 
 .main {
@@ -22,7 +22,7 @@
 
 .page_header .layout,
 .main .layout {
-  @apply p-[1em];
+  @apply p-[1em]; 
 }
 
 .layout {
